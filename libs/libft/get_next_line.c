@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprada-t <gprada-t@student.42barcel>       +#+  +:+       +#+        */
+/*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 13:04:51 by gprada-t          #+#    #+#             */
-/*   Updated: 2023/11/17 11:26:05 by gprada-t         ###   ########.fr       */
+/*   Updated: 2024/04/14 09:15:19 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,29 +88,3 @@ char	*get_next_line(int fd)
 	buffer[fd] = rest_buffer_gnl(buffer[fd]);
 	return (line);
 }
-/*
-#include <stdio.h>
-#include <fcntl.h>
-
-int main(void)
-{
-	char *line1;
-	char *line2;
-	int fd1, fd2;
-	
-	fd1 = open("archivo1.txt", O_RDONLY);
-	fd2 = open("archivo2.txt", O_RDONLY);
-	line1= malloc(sizeof(char *));
-	line2 = malloc(sizeof(char *));
-	while (line1 || line2)
-	{
-		line1 = get_next_line(fd1);
-		line2 = get_next_line(fd2);
-		printf("%s\n", line1);
-		printf("%s\n", line2);
-		free(line1);
-		free(line2);
-
-	}
-	return (0);
-}*/
