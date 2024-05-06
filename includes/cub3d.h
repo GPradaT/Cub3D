@@ -6,18 +6,14 @@
 /*   By: kmb <kmb@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 03:06:23 by kmb               #+#    #+#             */
-/*   Updated: 2024/05/02 00:40:20 by kmb              ###   ########.fr       */
+/*   Updated: 2024/05/06 01:54:04 by kmb              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
-
 //-----------------------DEFINES------------------------------------------------
-# define WINDOW_WIDTH 500
-# define WINDOW_HEIGHT 500
-# define SCALE_X WINDOW_WIDTH / MAP_WIDTH
-# define SCALE_Y WINDOW_HEIGHT / MAP_HEIGHT
+//-----------------------KEYS--------------------------------------------------
 # define KEY_W 119
 # define KEY_A 97
 # define KEY_S 115
@@ -25,13 +21,11 @@
 # define KEY_LEFT 65361
 # define KEY_RIGHT 65363
 # define KEY_ESC 65307
-# define MAP_WIDTH 8
-# define MAP_HEIGHT 8
+//-----------------------MATH--------------------------------------------------
 # define M_PI 3.14159265358979323846
 # define M_PI_2 M_PI / 2
 # define M_PI_3 3 * M_PI / 2
-# define ANGLE_STEP (M_PI / 180)
-# define MIN(a, b) ((a) < (b) ? (a) : (b))
+# define DR 0.01745329
 
 //-----------------------INCLUDES-------- --------------------------------------
 # include <math.h>
@@ -50,7 +44,7 @@
 
 typedef struct s_mlx
 {
-    void    *mlx_ptr, *win_ptr;
+    void    *mlx_ptr, *win_ptr, *win_ptr2;
 }   t_mlx;
 
 typedef struct s_player
@@ -60,8 +54,10 @@ typedef struct s_player
 
 typedef struct s_ray
 {
-    float angle, ray_x, ray_y, x_offset, y_offset;
-    int ray, mx, my, mp, deapht_of_field, length;
+    float angle, ray_x, ray_y, x_offset, y_offset, \
+    horizontal_x, horizontal_y, vertical_x, vertical_y, \
+    line_height, line_offset;
+    int ray, mx, my, mp, deapht_of_field, h_length, v_length, total_length;
 }   t_ray;
 
 typedef struct s_color
@@ -74,8 +70,8 @@ typedef struct s_map
     char *north_texture, *south_texture, *west_texture, *east_texture;
     t_color floor_color;
     t_color ceiling_color;
-    char **data;
-    int width, height;
+    int *map;
+    int win_w, win_h ,width, height, mapX, mapY, mapS, cellSize, x, y, i, j, cell, color;
 }   t_map;
 
 typedef struct s_game
@@ -83,7 +79,7 @@ typedef struct s_game
     t_mlx mlx;
     t_player player;
     t_map map;
-    t_ray rays[WINDOW_WIDTH];
+    t_ray rays[60];
 }   t_game;
 
 extern int map[];
@@ -98,9 +94,21 @@ void    draw_map(t_game *game);
 //-----------------------PLAYER------------------------------------------------
 int     key_press(int keycode, t_game *game);
 void    draw_player(t_game *game, int width, int height, int color);
-void    draw_player_angle(t_game *game, int length);
+void    draw_player_angle(t_game *game, int rayIndex, int lenght);
 //-----------------------CASTER------------------------------------------------
-void    cast_horizontal_ray(t_game *game);
-void    cast_vertical_ray(t_game *game);
-
+void    cast_rays(t_game *game);
+void    draw_3D(t_game *game);
+//-----------------------HORIZONTAL--------------------------------------------
+void    cast_horizontal(t_game *game);
+void    horizontal_direction(t_game *game);
+void    reset_horizontal(t_game *game);
+//-----------------------VERTICAL----------------------------------------------
+void    cast_vertical(t_game *game);
+void    vertical_direction(t_game *game);
+void    reset_vertical(t_game *game);
+//-----------------------UTILS-------------------------------------------------
+float       distance(float x1, float y1, float x2, float y2);
+void        chose_length(t_game *game);
+void        reset_angle(t_game *game);
+void        get_angle(t_game *game);
 #endif

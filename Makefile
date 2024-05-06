@@ -13,8 +13,7 @@ LIBFT		= $(LIBFT_PATH)$(LIBFT_NAME)
 INC			=	-I ./includes/\
 
 SRC_PATH	=	src/
-SRC			=	$(wildcard $(SRC_PATH)*.c)
-
+SRC			=	$(wildcard $(SRC_PATH)*.c $(SRC_PATH)*/*.c)
 OBJ_PATH	= obj/
 OBJ			= $(SRC:$(SRC_PATH)%.c=$(OBJ_PATH)%.o)
 
