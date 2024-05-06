@@ -6,7 +6,7 @@
 /*   By: kmb <kmb@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 05:49:01 by kmb               #+#    #+#             */
-/*   Updated: 2024/05/06 02:03:49 by kmb              ###   ########.fr       */
+/*   Updated: 2024/05/06 02:19:07 by kmb              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void draw_player_angle(t_game *game, int rayIndex, int length)
     x = game->player.x;
     y = game->player.y;
 
-    int k = 0;
     while (k < steps) {
         x += xIncrement;
         y += yIncrement;
