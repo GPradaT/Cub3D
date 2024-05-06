@@ -6,7 +6,7 @@
 /*   By: kmb <kmb@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 05:49:01 by kmb               #+#    #+#             */
-/*   Updated: 2024/05/06 02:19:07 by kmb              ###   ########.fr       */
+/*   Updated: 2024/05/06 02:20:17 by kmb              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,11 @@ void draw_player_angle(t_game *game, int rayIndex, int length)
     x = game->player.x;
     y = game->player.y;
 
-    while (k < steps) {
+    for (k = 0; k < steps; k++)
+    {
         x += xIncrement;
         y += yIncrement;
         mlx_pixel_put(game->mlx.mlx_ptr, game->mlx.win_ptr, round(x), round(y), 0xFFFFFF);
-        k++;
     }
 }
 
@@ -55,18 +55,14 @@ void    draw_3D(t_game *game)
     if (game->rays->line_height > game->map.win_h)
         game->rays->line_height = game->map.win_h;
     game->rays->line_offset = game->map.win_h / 2 - game->rays->line_height / 2;
-    int i = 0;
-    while (i < game->rays->line_height) {
-        int j = 0;
-        while (j < ray_width) {
+    for (int i = 0; i < game->rays->line_height; i++) {
+        for (int j = 0; j < ray_width; j++) {
             int x_position = game->rays->ray * ray_width + j;
             if (x_position < game->map.win_w) {
                 mlx_pixel_put(game->mlx.mlx_ptr, game->mlx.win_ptr2, x_position, game->rays->line_offset + i, 0xFF0000);
             }
-            j++;
         }
-        i++;
-    }  
+    }   
 }
 
 void draw_map(t_game *game)
