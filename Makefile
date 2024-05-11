@@ -4,7 +4,8 @@ CC		= gcc
 CFLAGS	= -Werror -Wextra -Wall -fsanitize=address
 RM		= rm -rf
 
-MLX_PATH	= lib/minilibx
+MLX_PATH	= lib/minilibx/
+#MLX_PATH	= lib/minilibx_mac/
 MLX_NAME	= libmlx.a
 MLX			= $(MLX_PATH)$(MLX_NAME)
 LIBFT_PATH	= lib/libft/
@@ -35,6 +36,9 @@ $(NAME): $(OBJ_PATH) $(OBJ)
 	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) -L $(MLX_PATH) -lmlx -L $(LIBFT_PATH) \
 	-lft -lX11 -lXpm -lXext -lm > /dev/null
 	@echo -e "\033[0;32m$(NAME) created 📚\033[0m"
+
+#$(NAME): $(OBJ_PATH) $(OBJ)
+#	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) -L $(MLX_PATH) -lmlx1-framework Cocoa -framework OpenGL -framework IOKit -lm > /dev/null
 
 clean:
 	@$(RM) $(OBJ_PATH)
