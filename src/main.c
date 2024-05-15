@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmb <kmb@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 03:07:46 by kmb               #+#    #+#             */
-/*   Updated: 2024/05/05 23:18:02 by kmb              ###   ########.fr       */
+/*   Updated: 2024/05/15 13:59:25 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-int map[] = 
+int map[] =
 {
     1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
     1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
@@ -30,11 +30,23 @@ int map[] =
     1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
 };
 
-int main(void)
+int main(int argc, char **argv)
 {
     t_game game;
 
-    game.map.map = map;
+	if (argc != 2)
+	{
+		ft_putstr_fd("Error\nInvalid number of arguments\n", 2);
+		return (FAILURE);
+	}
+	else if (ft_strncmp(argv[1] + ft_strlen(argv[1]) - 4, ".cub", 4))
+	{
+		ft_putstr_fd("Error\nInvalid file extension\n", 2);
+		return (FAILURE);
+	}
+	//if (parse_file(&game, argv[1]))
+	//	return (FAILURE);
+	game.map.map = map;
     init_game(&game);
     mlx_hook(game.mlx.win_ptr, 2, 1L<<0, key_press, &game);
     mlx_loop_hook(game.mlx.mlx_ptr, loop, &game);

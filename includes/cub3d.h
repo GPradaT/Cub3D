@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 03:06:23 by kmb               #+#    #+#             */
-/*   Updated: 2024/05/11 21:56:26 by gprada-t         ###   ########.fr       */
+/*   Updated: 2024/05/14 15:18:37 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,12 +71,28 @@ typedef struct s_color
 
 typedef struct s_map
 {
-    char *north_texture, *south_texture, *west_texture, *east_texture;
-    t_color floor_color;
-    t_color ceiling_color;
-    int *map;
-    int win_w, win_h ,width, height, mapX, mapY, mapS, cellSize, x, y, i, j, cell, color;
-}   t_map;
+	char	*north_texture;
+	char	*south_texture;
+	char	*west_texture;
+	char	*east_texture;
+	t_color	floor_color;
+	t_color	ceiling_color;
+	int		*map;
+	int		win_w;
+	int		win_h;
+	int		width;
+	int		height;
+	int		mapX;
+	int		mapY;
+	int		mapS;
+	int		cellSize;
+	int		x;
+	int		y;
+	int		i;
+	int		j;
+	int		cell;
+	int		color;
+}	t_map;
 
 typedef struct s_game
 {
@@ -88,6 +104,12 @@ typedef struct s_game
 
 extern int map[];
 
+
+//-----------------------PARSING-----------------------------------------------
+int     parse_file(t_game *game, char *file);
+void	parse_color(t_game *game, char *line);
+void	parse_texture_and_colors(t_game *game, char *line);
+int	parse_map(t_game *game, char *line);
 //-----------------------PROTOTYPES--------------------------------------------
 //-----------------------INIT--------------------------------------------------
 void    init_game(t_game *game);

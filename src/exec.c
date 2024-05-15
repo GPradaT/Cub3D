@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmb <kmb@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 00:38:00 by kmb               #+#    #+#             */
-/*   Updated: 2024/05/06 01:18:39 by kmb              ###   ########.fr       */
+/*   Updated: 2024/05/15 13:59:16 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
-
 void init_game(t_game *game)
 {
     int x = 0, y = 0;
