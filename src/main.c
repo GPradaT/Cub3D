@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 03:07:46 by kmb               #+#    #+#             */
-/*   Updated: 2024/05/16 13:24:25 by gprada-t         ###   ########.fr       */
+/*   Updated: 2024/05/16 22:32:12 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,12 @@ int map[] =
     1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
 };
 
-void	do_map(t_game *game)
-{
-	char *line;
-	line = get_next_line(*fd);
-	printf("line:%s\n", line);
-}
+//void	do_map(t_game *game)
+//{
+//	char *line;
+//	line = get_next_line(*fd);
+//	printf("line:%s\n", line);
+//}
 
 int main(int argc, char **argv)
 {
@@ -55,9 +55,9 @@ int main(int argc, char **argv)
 	}
 	if (parse_file(&game, argv[1]))
 		return (FAILURE);
-	do_map(&game);
-	//	game.map.map = map;
-    init_game(&game);
+	//domap(&game);
+	//game.map.map = map;
+    //init_game(&game);
     mlx_hook(game.mlx.win_ptr, 2, 1L<<0, key_press, &game);
     mlx_loop_hook(game.mlx.mlx_ptr, loop, &game);
     mlx_loop(game.mlx.mlx_ptr);

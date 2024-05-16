@@ -1,7 +1,7 @@
 NAME	= cub3d
 
 CC		= gcc
-CFLAGS	= #-Werror -Wextra -Wall -fsanitize=address
+CFLAGS	= -fsanitize=address#-Werror -Wextra -Wall
 RM		= rm -rf
 
 MLX_PATH	= lib/minilibx/

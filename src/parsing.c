@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 09:18:04 by gprada-t          #+#    #+#             */
-/*   Updated: 2024/05/16 13:26:44 by gprada-t         ###   ########.fr       */
+/*   Updated: 2024/05/16 22:35:23 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,6 @@ int	parse_map(t_game *game, char *line)
 	i = 0;
 	while (line[i])
 	{
-		printf("caracter que leo --> %c\n", line[i]);
-		printf("caracter que leo --> %d\n", line[i]);
-		printf("caracter en int -> %d\n", line[i] - '0');
 		if (player > 1)
 		{
 			ft_putstr_fd("Error\nInvalid map, cannot be more than 1 player\n", 2);
@@ -35,15 +32,11 @@ int	parse_map(t_game *game, char *line)
 			game->player.angle = line[i];
 			player++;
 		}
-		if (line[i] == '1' || line[i] == '0')
-			{
-				printf("mapX: %d\n", game->map.mapX);
-				printf("mapY: %d\n", game->map.mapY);
-			}
-		if (line[i] == '1' || line[i] == '0' || line[i] == ' ' || line[i] == '\t')
+		else if (line[i] == '1' || line[i] == '0' || line[i] == ' ' || line[i] == '\t')
 		{
 			if (line[i] == '\t')
 			{
+				printf("tab_count: %d\n", tab_count);
 				tab_count++;
 				game->map.mapX += 3;
 			}
@@ -51,17 +44,12 @@ int	parse_map(t_game *game, char *line)
 		}
 		i++;
 	}
-
-
-	//SEGUIR AQUIIIII
-	ft_strlcat(game->map.temp_map, line, i);
 	i = i - 1 + (tab_count * 3);
 	if (game->map.width < i)
 		game->map.width = i;
+	game->map.temp_map = ft_strjoin(game->map.temp_map, line);
 	game->map.height++;
 	game->map.mapY++;
-	printf("map width: %d\n", game->map.width);
-	printf("map height: %d\n", game->map.height);
 	return (SUCCESS);
 }
 
@@ -211,6 +199,7 @@ int	parse_file(t_game *game, char *argv)
 	game->map.east_texture = NULL;
 	game->map.west_texture = NULL;
 	game->map.map = NULL;
+	game->map.temp_map = NULL;
 	game->map.mapX = 0;
 	game->map.mapY = 0;
 	game->map.width = 0;
@@ -239,9 +228,9 @@ int	parse_file(t_game *game, char *argv)
 		line = get_next_line(fd);
 		if (!line)
 			break;
-		printf("line: %s\n", line);
 		parse_map(game, line);
 	}
 	close(fd);
+	printf("HOLA SOY LA POLLA temp_map: %s\n", game->map.temp_map);
 	return (SUCCESS);
 }
