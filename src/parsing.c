@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 09:18:04 by gprada-t          #+#    #+#             */
-/*   Updated: 2024/05/15 13:54:39 by gprada-t         ###   ########.fr       */
+/*   Updated: 2024/05/16 13:26:44 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,14 @@
 int	parse_map(t_game *game, char *line)
 {
 	int		i;
-	static int		player;
-	static int		mapX = 0;
-	player = 0;
-	i = -1;
-	while (line[++i])
+	int	tab_count = 0;
+	static int		player = 0;
+	i = 0;
+	while (line[i])
 	{
 		printf("caracter que leo --> %c\n", line[i]);
-		if (line[i] == 'F' || line[i] == 'C')
-			parse_color(game, line);
+		printf("caracter que leo --> %d\n", line[i]);
+		printf("caracter en int -> %d\n", line[i] - '0');
 		if (player > 1)
 		{
 			ft_putstr_fd("Error\nInvalid map, cannot be more than 1 player\n", 2);
@@ -36,19 +35,33 @@ int	parse_map(t_game *game, char *line)
 			game->player.angle = line[i];
 			player++;
 		}
-		if (line[i] != ' ' || line[i] != '\t' || line[i] != '1' || line[i] != '0'
-			|| line[i] != 'N' || line[i] != 'S'
-			|| line[i] != 'E' || line[i] != 'W')
-		{
-			ft_putstr_fd("Error\nInvalid map\n", 2);
-			return (FAILURE);
-		}
-
 		if (line[i] == '1' || line[i] == '0')
+			{
+				printf("mapX: %d\n", game->map.mapX);
+				printf("mapY: %d\n", game->map.mapY);
+			}
+		if (line[i] == '1' || line[i] == '0' || line[i] == ' ' || line[i] == '\t')
+		{
+			if (line[i] == '\t')
+			{
+				tab_count++;
+				game->map.mapX += 3;
+			}
 			game->map.mapX++;
+		}
+		i++;
 	}
+
+
+	//SEGUIR AQUIIIII
+	ft_strlcat(game->map.temp_map, line, i);
+	i = i - 1 + (tab_count * 3);
+	if (game->map.width < i)
+		game->map.width = i;
+	game->map.height++;
 	game->map.mapY++;
-	game->map.map = ft_realloc(game->map.map, sizeof(char) * (game->map.mapX + 1));
+	printf("map width: %d\n", game->map.width);
+	printf("map height: %d\n", game->map.height);
 	return (SUCCESS);
 }
 
@@ -137,11 +150,8 @@ void	parse_texture_and_colors(t_game *game, char *line)
 		ft_putstr_fd("Error\nInvalid texture\n", 2);
 		return ;
 	}
-	while (ft_isspace(line[i]) == TRUE)
-		i++;
-	{
+	while (ft_isspace(*line) == TRUE)
 		line++;
-	}
 	if (strncmp(line, "NO", 2) == 0)
 	{
 		game->map.north_texture = ft_strdup(line + 2);
@@ -190,14 +200,23 @@ int	parse_file(t_game *game, char *argv)
 	int		fd;
 	char	*line;
 
-	game->map.width = 100;
-	game->map.height = 100;
 	game->map.floor_color.b = -1;
 	game->map.floor_color.g = -1;
 	game->map.floor_color.r = -1;
 	game->map.ceiling_color.b = -1;
 	game->map.ceiling_color.g = -1;
 	game->map.ceiling_color.r = -1;
+	game->map.north_texture = NULL;
+	game->map.south_texture = NULL;
+	game->map.east_texture = NULL;
+	game->map.west_texture = NULL;
+	game->map.map = NULL;
+	game->map.mapX = 0;
+	game->map.mapY = 0;
+	game->map.width = 0;
+	game->map.height = 0;
+	game->map.mapS = 64;
+	game->map.cellSize = 63;
 	fd = open(argv, O_RDONLY);
 	if (fd < 0)
 	{
@@ -209,7 +228,6 @@ int	parse_file(t_game *game, char *argv)
 		line = get_next_line(fd);
 		if (!line)
 			break ;
-		printf("line: %s\n", line);
 		while (line[0] == ' ')
 			line++;
 		parse_texture_and_colors(game, line);
@@ -220,9 +238,10 @@ int	parse_file(t_game *game, char *argv)
 	{
 		line = get_next_line(fd);
 		if (!line)
-			return (printf("no hay mapa en el archivo"), FAILURE);
+			break;
 		printf("line: %s\n", line);
 		parse_map(game, line);
 	}
-	return (close(fd));
+	close(fd);
+	return (SUCCESS);
 }

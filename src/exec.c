@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 00:38:00 by kmb               #+#    #+#             */
-/*   Updated: 2024/05/15 13:59:16 by gprada-t         ###   ########.fr       */
+/*   Updated: 2024/05/16 12:40:50 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,11 @@
 void init_game(t_game *game)
 {
     int x = 0, y = 0;
-    game->map.mapX = 25,  game->map.mapY = 14,  game->map.mapS = 64;
+    //game->map.mapX = 25,  game->map.mapY = 14,
+	game->map.mapS = 64;
 
+    game->map.width = 0;
+    game->map.height = 0;
 
     game->mlx.mlx_ptr = mlx_init();
     game->map.width = game->map.mapX * game->map.mapS;
@@ -24,14 +27,12 @@ void init_game(t_game *game)
     game->mlx.win_ptr2 = mlx_new_window(game->mlx.mlx_ptr, game->map.width, game->map.height, "cub3d1");
     game->mlx.win_ptr = mlx_new_window(game->mlx.mlx_ptr, game->map.width, game->map.height, "cub3d");
 
-    game->map.width = 0;
-    game->map.height = 0;
-    game->map.floor_color.b = 128;
-    game->map.floor_color.g = 128;
-    game->map.floor_color.r = 128;
-    game->map.ceiling_color.b = 0;
-    game->map.ceiling_color.g = 0;
-    game->map.ceiling_color.r = 0;
+    //game->map.floor_color.b = 128;
+    //game->map.floor_color.g = 128;
+    //game->map.floor_color.r = 128;
+    //game->map.ceiling_color.b = 0;
+    //game->map.ceiling_color.g = 0;
+    //game->map.ceiling_color.r = 0;
 
     while ( y < game->map.mapY)
     {

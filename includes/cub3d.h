@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 03:06:23 by kmb               #+#    #+#             */
-/*   Updated: 2024/05/14 15:18:37 by gprada-t         ###   ########.fr       */
+/*   Updated: 2024/05/16 13:23:59 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ typedef struct s_color
 
 typedef struct s_map
 {
+	char	*temp_map;
 	char	*north_texture;
 	char	*south_texture;
 	char	*west_texture;
