@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 03:07:46 by kmb               #+#    #+#             */
-/*   Updated: 2024/05/21 10:01:57 by gprada-t         ###   ########.fr       */
+/*   Updated: 2024/05/21 11:11:19 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int map[] =
     1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
 };
 
+// En este caso, la función do_map() se encarga de asignar los valores de la matriz map[] a la estructura map del juego.
 void	do_map(t_game *game)
 {
 	int i;
@@ -38,7 +39,7 @@ void	do_map(t_game *game)
 
 	i = 0;
 	j = 0;
-	game->map.map = (int *)malloc(sizeof(int) * game->map.mapX);
+	game->map.map = malloc(sizeof(int) * game->map.mapX * game->map.mapY);
 	printf("game->map.mapX: %d\n", game->map.mapX);
 	printf("game->map.mapY: %d\n", game->map.mapY);
 	if (!game->map.map)
@@ -46,9 +47,8 @@ void	do_map(t_game *game)
 		ft_putstr_fd("Error\nMalloc failed\n", 2);
 		exit(1);
 	}
-	while (i < game->map.mapX && game->map.temp_map[j])
+	while (j < ft_strlen(game->map.temp_map) && game->map.temp_map[j] != '\0')
 	{
-		printf("game->map.temp_map[%d]: %d\n", j, game->map.temp_map[j]);
 		if (game->map.temp_map[j] == 9)
 		{
 			game->map.map[i] = 1;
@@ -72,7 +72,6 @@ void	do_map(t_game *game)
 			game->map.map[i] = 0;
 		else if (game->map.temp_map[j] == 'N' || game->map.temp_map[j] == 'S' || game->map.temp_map[j] == 'E' || game->map.temp_map[j] == 'W')
 			game->map.map[i] = 3;
-		printf("game->map.map[%d]: %d\n", i, game->map.map[i]);
 		i++;
 		j++;
 	}

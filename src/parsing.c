@@ -6,26 +6,29 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 09:18:04 by gprada-t          #+#    #+#             */
-/*   Updated: 2024/05/17 13:16:51 by gprada-t         ###   ########.fr       */
+/*   Updated: 2024/05/21 11:09:25 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
 
+// aqui compruebo que no tenga mas de 1 jugador por mapa, cuento X e Y, y le meto a una
+// variable temporal el mapa en str para luego transformarelo en int
 int	parse_map(t_game *game, char *line)
 {
 	int			i;
 	static int	tab_count = 0;
 	static int	player = 0;
-	int			valid_map_chars_count = 0;
 	i = 0;
 	while (line[i])
 	{
 		if (player > 1)
 		{
 			ft_putstr_fd("Error\nInvalid map, cannot be more than 1 player\n", 2);
+			free(game->map.temp_map);
 			return (FAILURE);
 		}
+		//revisa este if porque no se si es como lo  necesitas o no
 		if (line[i] == 'N' || line[i] == 'S' || line[i] == 'E' || line[i] == 'W')
 		{
 			game->player.x = i;
@@ -36,20 +39,20 @@ int	parse_map(t_game *game, char *line)
 		else if (line[i] == '1' || line[i] == '0' || line[i] == ' ' || line[i] == '\t')
 		{
 			if (line[i] == '\t')
-				game->map.mapX += 3;
-			game->map.mapX++;
+				tab_count += 3;
 		}
 		i++;
 	}
-	i = i - 1 + (tab_count * 3);
-	if (game->map.width < i)
-		game->map.width = i;
+	i = i - 1 + tab_count;
+	if (game->map.mapX < i)
+		game->map.mapX = i;
 	game->map.temp_map = ft_strjoin(game->map.temp_map, line);
-	game->map.height++;
 	game->map.mapY++;
 	return (SUCCESS);
 }
 
+// esto es una guarrada  guarrissima que funciona, te da los colores en rgb
+// los puedes imprimir para comprogbarlos, ya lo limpiaré xD
 void	parse_color(t_game *game, char *line)
 {
 	int		i;
@@ -180,6 +183,7 @@ int	textures_and_colors_get(t_game *game)
 	return (FALSE);
 }
 
+// Inicializo los valores de map y chekeo archivo y relleno datos en las funciones parse_map
 int	parse_file(t_game *game, char *argv)
 {
 	int		fd;
@@ -203,7 +207,6 @@ int	parse_file(t_game *game, char *argv)
 	game->map.height = 0;
 	game->map.mapS = 64;
 	game->map.cellSize = 63;
-	game->map.final_map_buffer = 0;
 	fd = open(argv, O_RDONLY);
 	if (fd < 0)
 	{
@@ -226,9 +229,10 @@ int	parse_file(t_game *game, char *argv)
 		line = get_next_line(fd);
 		if (!line)
 			break;
-		game->map.final_map_buffer += parse_map(game, line);
+		parse_map(game, line);
 	}
 	close(fd);
+	printf("longitud de la string: %d\n", ft_strlen(game->map.temp_map));
 	printf("HOLA SOY LA POLLA temp_map: %s\n", game->map.temp_map);
 	return (SUCCESS);
 }

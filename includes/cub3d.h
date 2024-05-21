@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 03:06:23 by kmb               #+#    #+#             */
-/*   Updated: 2024/05/17 12:45:53 by gprada-t         ###   ########.fr       */
+/*   Updated: 2024/05/21 11:04:14 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ typedef struct s_map
 	char	*south_texture;
 	char	*west_texture;
 	char	*east_texture;
-	int		final_map_buffer;
 	t_color	floor_color;
 	t_color	ceiling_color;
 	int		*map;
