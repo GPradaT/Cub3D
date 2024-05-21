@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 09:18:04 by gprada-t          #+#    #+#             */
-/*   Updated: 2024/05/16 22:35:23 by gprada-t         ###   ########.fr       */
+/*   Updated: 2024/05/17 13:16:51 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 
 int	parse_map(t_game *game, char *line)
 {
-	int		i;
-	int	tab_count = 0;
-	static int		player = 0;
+	int			i;
+	static int	tab_count = 0;
+	static int	player = 0;
+	int			valid_map_chars_count = 0;
 	i = 0;
 	while (line[i])
 	{
@@ -35,11 +36,7 @@ int	parse_map(t_game *game, char *line)
 		else if (line[i] == '1' || line[i] == '0' || line[i] == ' ' || line[i] == '\t')
 		{
 			if (line[i] == '\t')
-			{
-				printf("tab_count: %d\n", tab_count);
-				tab_count++;
 				game->map.mapX += 3;
-			}
 			game->map.mapX++;
 		}
 		i++;
@@ -206,6 +203,7 @@ int	parse_file(t_game *game, char *argv)
 	game->map.height = 0;
 	game->map.mapS = 64;
 	game->map.cellSize = 63;
+	game->map.final_map_buffer = 0;
 	fd = open(argv, O_RDONLY);
 	if (fd < 0)
 	{
@@ -228,7 +226,7 @@ int	parse_file(t_game *game, char *argv)
 		line = get_next_line(fd);
 		if (!line)
 			break;
-		parse_map(game, line);
+		game->map.final_map_buffer += parse_map(game, line);
 	}
 	close(fd);
 	printf("HOLA SOY LA POLLA temp_map: %s\n", game->map.temp_map);

@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 03:07:46 by kmb               #+#    #+#             */
-/*   Updated: 2024/05/16 22:32:12 by gprada-t         ###   ########.fr       */
+/*   Updated: 2024/05/21 10:01:57 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,52 @@ int map[] =
     1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
 };
 
-//void	do_map(t_game *game)
-//{
-//	char *line;
-//	line = get_next_line(*fd);
-//	printf("line:%s\n", line);
-//}
+void	do_map(t_game *game)
+{
+	int i;
+	int j;
+
+	i = 0;
+	j = 0;
+	game->map.map = (int *)malloc(sizeof(int) * game->map.mapX);
+	printf("game->map.mapX: %d\n", game->map.mapX);
+	printf("game->map.mapY: %d\n", game->map.mapY);
+	if (!game->map.map)
+	{
+		ft_putstr_fd("Error\nMalloc failed\n", 2);
+		exit(1);
+	}
+	while (i < game->map.mapX && game->map.temp_map[j])
+	{
+		printf("game->map.temp_map[%d]: %d\n", j, game->map.temp_map[j]);
+		if (game->map.temp_map[j] == 9)
+		{
+			game->map.map[i] = 1;
+			i++;
+			game->map.map[i] = 1;
+			i++;
+			game->map.map[i] = 1;
+			i++;
+			j++;
+		}
+		else if (game->map.temp_map[j] == 10)
+		{
+			game->map.map[i] = 1;
+			j++;
+		}
+		else if (game->map.temp_map[j] == ' ')
+			game->map.map[i] = 1;
+		else if (game->map.temp_map[j] == '1')
+			game->map.map[i] = 1;
+		else if (game->map.temp_map[j] == '0')
+			game->map.map[i] = 0;
+		else if (game->map.temp_map[j] == 'N' || game->map.temp_map[j] == 'S' || game->map.temp_map[j] == 'E' || game->map.temp_map[j] == 'W')
+			game->map.map[i] = 3;
+		printf("game->map.map[%d]: %d\n", i, game->map.map[i]);
+		i++;
+		j++;
+	}
+}
 
 int main(int argc, char **argv)
 {
@@ -55,9 +95,9 @@ int main(int argc, char **argv)
 	}
 	if (parse_file(&game, argv[1]))
 		return (FAILURE);
-	//domap(&game);
+	do_map(&game);
 	//game.map.map = map;
-    //init_game(&game);
+    init_game(&game);
     mlx_hook(game.mlx.win_ptr, 2, 1L<<0, key_press, &game);
     mlx_loop_hook(game.mlx.mlx_ptr, loop, &game);
     mlx_loop(game.mlx.mlx_ptr);
