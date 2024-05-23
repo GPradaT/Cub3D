@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   caster.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmb <kmb@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: nobmk <nobmk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 00:36:56 by kmb               #+#    #+#             */
-/*   Updated: 2024/05/06 01:39:49 by kmb              ###   ########.fr       */
+/*   Updated: 2024/05/23 02:08:14 by nobmk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void cast_rays(t_game *game)
 {
     get_angle(game);
     game->rays->ray = 0;
-    while (game->rays->ray < 90)
+    while (game->rays->ray < 60)
     {
         reset_angle(game);
         reset_horizontal(game);
