@@ -29,21 +29,23 @@ despues parsear los colores y tal.
 direccion del spawn del jugador
 
 crear mapas para testeo
+
+colision de paredes
+
 -----------------------------------------------------------------------------
 ----------------------------------------------------------------------------
 MISSING
 
 -----------------------------------------------------------------------------
 -----------------------------------------------------------------------------
-colision de paredes
 
 texturizar paredes
 
 aplicar colores al techo y al suelo 
 
-testear leaks y errores
-
 tabs en el mapa y que se puede leer un mapa no quadrado
+
+testear leaks y errores
 
 norminette y codigo legible y limpio
 

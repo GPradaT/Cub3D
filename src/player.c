@@ -6,12 +6,13 @@
 /*   By: nobmk <nobmk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 05:42:43 by kmb               #+#    #+#             */
-/*   Updated: 2024/05/23 02:17:10 by nobmk            ###   ########.fr       */
+/*   Updated: 2024/05/23 02:34:03 by nobmk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
+// Algoritmo de Bresenham para dibujar lineas
 void draw_player_angle(t_game *game, int rayIndex, int length)
 {
     int dx, dy, steps, k;
@@ -69,6 +70,7 @@ void draw_player(t_game *game, int width, int height, int color)
     cast_rays(game);
     draw_map(game);
 }
+
 int is_wall(t_game *game, float x, float y) 
 {
     int mapX = (int)(x / game->map.mapS);
