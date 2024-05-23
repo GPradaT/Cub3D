@@ -6,7 +6,7 @@
 /*   By: nobmk <nobmk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 05:42:43 by kmb               #+#    #+#             */
-/*   Updated: 2024/05/23 02:10:25 by nobmk            ###   ########.fr       */
+/*   Updated: 2024/05/23 02:17:10 by nobmk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,14 @@ void draw_player_angle(t_game *game, int rayIndex, int length)
     x = game->player.x;
     y = game->player.y;
 
-    for (k = 0; k < steps; k++)
+    k = 0;
+    while (k < steps)
     {
         x += xIncrement;
         y += yIncrement;
         mlx_pixel_put(game->mlx.mlx_ptr, \
         game->mlx.win_ptr, round(x), round(y), 0xFFFFFF);
+        k++;
     }
 }
 

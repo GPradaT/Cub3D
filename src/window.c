@@ -6,7 +6,7 @@
 /*   By: nobmk <nobmk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 05:49:01 by kmb               #+#    #+#             */
-/*   Updated: 2024/05/23 02:08:15 by nobmk            ###   ########.fr       */
+/*   Updated: 2024/05/23 02:14:26 by nobmk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void draw_3D(t_game *game)
         j = 0;
         while (j < ray_width)
         {
-            // Offset the y-coordinate by the height of the map grid
             int y_position = game->map.win_h + game->rays->line_offset + i;
             if (y_position < game->map.win_h * 2) 
                 mlx_pixel_put(game->mlx.mlx_ptr, game->mlx.win_ptr, game->rays->ray * ray_width + j, y_position, 0xFF0000);
@@ -48,11 +47,9 @@ void draw_map(t_game *game)
     game->map.height = game->map.mapY;
     game->map.width = game->map.mapX;
     
-    // Draw the map
     while ( game->map.y <  game->map.mapY)
     {
         game->map.x = 0;
-        // Draw the cell
         while ( game->map.x <  game->map.mapX)
         {
             game->map.cell = game->map.map[ game->map.y * \
@@ -60,7 +57,6 @@ void draw_map(t_game *game)
             game->map.color =  game->map.cell \
             == 1 ? 0x0000FF : 0x808080;
             game->map.i = 0;
-            // Draw the cell size
             while ( game->map.i <  game->map.cellSize)
             {
                 game->map.j = 0;
@@ -75,7 +71,6 @@ void draw_map(t_game *game)
                 game->map.i++;
             }
             game->map.j = 0;
-            // Draw the grid
             while (game->map.j < game->map.mapS)
             {
                 mlx_pixel_put(game->mlx.mlx_ptr, game->mlx.win_ptr, \

@@ -6,7 +6,7 @@
 /*   By: nobmk <nobmk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 00:38:00 by kmb               #+#    #+#             */
-/*   Updated: 2024/05/23 01:52:00 by nobmk            ###   ########.fr       */
+/*   Updated: 2024/05/23 02:14:44 by nobmk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void init_game(t_game *game)
     game->map.height = game->map.mapY * game->map.mapS;
     game->map.cellSize =  game->map.mapS - 1;
 
-    // Create a single window with enough height for both the map grid and the 3D draw
     game->mlx.win_ptr = mlx_new_window(game->mlx.mlx_ptr, \
     game->map.width, game->map.height * 2, "Game");
 
