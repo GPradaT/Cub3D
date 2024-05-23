@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nobmk <nobmk@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 09:18:04 by gprada-t          #+#    #+#             */
-/*   Updated: 2024/05/23 01:29:34 by nobmk            ###   ########.fr       */
+/*   Updated: 2024/05/23 14:58:41 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	parse_map(t_game *game, char *line)
 			return (FAILURE);
 		}
 		//revisa este if porque no se si es como lo  necesitas o no
-		if (line[i] == 'N' || line[i] == 'S' 
+		if (line[i] == 'N' || line[i] == 'S'
 			|| line[i] == 'E' || line[i] == 'W')
 		{
 			game->player.x = i;
@@ -37,7 +37,7 @@ int	parse_map(t_game *game, char *line)
 			game->player.angle = line[i];
 			player++;
 		}
-		else if (line[i] == '1' || line[i] == '0' 
+		else if (line[i] == '1' || line[i] == '0'
 			|| line[i] == ' ' || line[i] == '\t')
 		{
 			if (line[i] == '\t')

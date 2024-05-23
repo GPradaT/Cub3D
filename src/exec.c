@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nobmk <nobmk@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 00:38:00 by kmb               #+#    #+#             */
-/*   Updated: 2024/05/23 02:14:44 by nobmk            ###   ########.fr       */
+/*   Updated: 2024/05/23 14:53:51 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
-
 void init_game(t_game *game)
 {
     int x = 0, y = 0;
@@ -51,3 +50,4 @@ int loop(t_game *game)
     draw_player(game, 10, 10, 0xFF0000);
     return 0;
 }
+

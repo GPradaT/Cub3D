@@ -3,17 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nobmk <nobmk@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 03:07:46 by kmb               #+#    #+#             */
-/*   Updated: 2024/05/23 02:27:06 by nobmk            ###   ########.fr       */
+/*   Updated: 2024/05/23 14:52:06 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-// En este caso, la función do_map() se encarga de asignar los valores de la \
-matriz map[] a la estructura map del juego.
+
+int map[] =
+{
+    1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+    1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+    1, 0, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+    1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+    1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+    1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+    1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0,
+    1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0,
+    1, 1, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0,
+    1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 1, 0, 0,
+    1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1,
+    1, 1, 0, 0, 0, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 0, 1,
+    1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1,
+    1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+};
+
+// En este caso, la función do_map() se encarga de asignar los valores de la matriz map[] a la estructura map del juego.
 void	do_map(t_game *game)
 {
 	int i;
@@ -52,8 +70,7 @@ void	do_map(t_game *game)
 			game->map.map[i] = 1;
 		else if (game->map.temp_map[j] == '0')
 			game->map.map[i] = 0;
-		else if (game->map.temp_map[j] == 'N' || game->map.temp_map[j] == 'S' 
-		|| game->map.temp_map[j] == 'E' || game->map.temp_map[j] == 'W')
+		else if (game->map.temp_map[j] == 'N' || game->map.temp_map[j] == 'S' || game->map.temp_map[j] == 'E' || game->map.temp_map[j] == 'W')
 			game->map.map[i] = 3;
 		i++;
 		j++;
@@ -78,6 +95,7 @@ int main(int argc, char **argv)
 	if (parse_file(&game, argv[1]))
 		return (FAILURE);
 	do_map(&game);
+	//game.map.map = map;
     init_game(&game);
     mlx_hook(game.mlx.win_ptr, 2, 1L<<0, key_press, &game);
     mlx_loop_hook(game.mlx.mlx_ptr, loop, &game);
