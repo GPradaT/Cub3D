@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
+/*   By: nobmk <nobmk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 03:06:23 by kmb               #+#    #+#             */
-/*   Updated: 2024/05/21 11:04:14 by gprada-t         ###   ########.fr       */
+/*   Updated: 2024/05/26 07:02:44 by nobmk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,11 @@
 #define FAILURE 1
 #define TRUE 1
 #define FALSE 0
+# define FLOOR_COLOR 0xFF0000
+# define CEILING_COLOR 0x00FF00
 //-----------------------KEYS--------------------------------------------------
 # define KEY_W 119
+# define EVENT_CLOSE_BTN 17
 # define KEY_A 97
 # define KEY_S 115
 # define KEY_D 100

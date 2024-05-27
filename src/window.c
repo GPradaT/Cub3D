@@ -6,7 +6,7 @@
 /*   By: nobmk <nobmk@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 05:49:01 by kmb               #+#    #+#             */
-/*   Updated: 2024/05/23 02:33:01 by nobmk            ###   ########.fr       */
+/*   Updated: 2024/05/26 10:42:31 by nobmk            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,41 +19,57 @@ void draw_3D(t_game *game)
 
     game->map.win_h = game->map.mapY * game->map.mapS;
     game->map.win_w = game->map.mapX * game->map.mapS;
-    // Esto es para setear el fov de la camara conforme a los rayos
-    int ray_width = game->map.win_w / 60;
-    game->rays->line_height = (game->map.mapS * \
-    game->map.win_h) / game->rays->total_length;
+    int ray_width = game->map.win_w / 120;
+    game->rays->line_height = (game->map.mapS * game->map.win_h) / game->rays->total_length;
     
     if (game->rays->line_height > game->map.win_h)
         game->rays->line_height = game->map.win_h;
     game->rays->line_offset = game->map.win_h / 2 - game->rays->line_height / 2;
     i = 0;
-    // Aqui se dibuja el 3D en y
-    while (i < game->rays->line_height)
+    while (i < game->rays->line_offset)
     {
         j = 0;
-        // Aqui se dibuja el 3D en x
         while (j < ray_width)
         {
-            // Aqui se dibuja el rayo en vertical conforme a la distancia
-            int y_position = game->map.win_h + game->rays->line_offset + i;
-            // Esto es para que no se dibuje fuera de la pantalla
-            if (y_position < game->map.win_h * 2) 
-                mlx_pixel_put(game->mlx.mlx_ptr, \
-                game->mlx.win_ptr, game->rays->ray * \
-                ray_width + j, y_position, 0xFF0000);
+            mlx_pixel_put(game->mlx.mlx_ptr, game->mlx.win_ptr,
+            game->rays->ray * ray_width + j, i, 0x00FF00);
             j++;
         }
         i++;
-    }   
+    }
+
+    while (i < game->rays->line_height + game->rays->line_offset)
+    {
+        j = 0;
+        while (j < ray_width)
+        {
+            if (i < game->map.win_h) 
+                mlx_pixel_put(game->mlx.mlx_ptr, \
+                game->mlx.win_ptr, game->rays->ray * \
+                ray_width + j, i, 0xFF0000);
+            j++;
+        }
+        i++;
+    }
+    while (i < game->map.win_h)
+    {
+        j = 0;
+        while (j < ray_width)
+        {
+            mlx_pixel_put(game->mlx.mlx_ptr, game->mlx.win_ptr, \
+            game->rays->ray * ray_width + j, i, 0x0000FF);
+            j++;
+        }
+        i++;
+    }
 }
 
 void draw_map(t_game *game)
 {
     
     game->map.y = 0;
-    game->map.height = game->map.mapY;
-    game->map.width = game->map.mapX;
+    game->map.mapS /= 4;
+    game->map.cellSize /= 4;
     
     // Aqui se dibuja el mapa en y
     while ( game->map.y <  game->map.mapY)
@@ -75,7 +91,7 @@ void draw_map(t_game *game)
                 // Aqui se dibuja la celda del mapa en x
                 while ( game->map.j <  game->map.cellSize)
                 {
-                    mlx_pixel_put(game->mlx.mlx_ptr, game->mlx.win_ptr,\
+                    mlx_pixel_put(game->mlx.mlx_ptr, game->mlx.win_ptr2,\
                     game->map.x * game->map.mapS + game->map.j, \
                     game->map.y * game->map.mapS + game->map.i, \
                     game->map.color);
@@ -85,16 +101,11 @@ void draw_map(t_game *game)
             }
             game->map.j = 0;
             // Aqui se dibuja la linea de la celda
-            while (game->map.j < game->map.mapS)
-            {
-                mlx_pixel_put(game->mlx.mlx_ptr, game->mlx.win_ptr, \
-                game->map.x * game->map.mapS + game->map.j, \
-                game->map.y * game->map.mapS + game->map.cellSize, 0xFFFFFF);
-                game->map.j++;
-            }
             game->map.x++;
         }
         game->map.y++;
     }
+    game->map.mapS *= 4;
+    game->map.cellSize *= 4; 
 
 }
