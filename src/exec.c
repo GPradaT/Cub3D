@@ -6,7 +6,7 @@
 /*   By: akambou <akambou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 00:38:00 by kmb               #+#    #+#             */
-/*   Updated: 2024/06/07 18:47:53 by akambou          ###   ########.fr       */
+/*   Updated: 2024/06/07 19:38:02 by akambou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,13 @@
 void init_game(t_game *game)
 {
     int x = 0, y = 0;
+    int *img_width;
+    int *img_height;
 
+    img_width = (int *)malloc(sizeof(int));
+    img_height = (int *)malloc(sizeof(int));
+    *img_width = 32;
+    *img_height = 32;
     game->map.mapY -= 1;
     game->map.height = game->map.mapY * game->map.mapS;
     game->map.width = game->map.mapX * game->map.mapS;
@@ -31,9 +37,7 @@ void init_game(t_game *game)
 
     game->data.img = mlx_new_image(game->data.mlx_ptr, \
     game->map.width / 2, game->map.height);
-    
-    game->data.texture = mlx_xpm_file_to_image(game->data.mlx_ptr, \
-    "./textures/hitler.xmp", 32, 32);   
+       
 
     game->data.addr = mlx_get_data_addr(game->data.img, \
     &game->data.bits_per_pixel, &game->data.line_length, &game->data.endian);

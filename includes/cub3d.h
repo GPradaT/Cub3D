@@ -6,7 +6,7 @@
 /*   By: akambou <akambou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 03:06:23 by kmb               #+#    #+#             */
-/*   Updated: 2024/06/07 18:27:03 by akambou          ###   ########.fr       */
+/*   Updated: 2024/06/07 19:32:13 by akambou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,6 @@ typedef struct	s_data
 {
 	void    *mlx_ptr, *win_ptr, *win_ptr2;
 	void	*img;
-	void	*texture;
-	char   *texture_addr;
 	char	*addr;
 	int		bits_per_pixel;
 	int		line_length;
@@ -110,6 +108,7 @@ typedef struct s_game
     t_player player;
     t_map map;
 	t_data data;
+	t_data texture;
     t_ray rays[60];
 }   t_game;
 

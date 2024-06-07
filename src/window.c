@@ -6,7 +6,7 @@
 /*   By: akambou <akambou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 05:49:01 by kmb               #+#    #+#             */
-/*   Updated: 2024/06/07 18:52:38 by akambou          ###   ########.fr       */
+/*   Updated: 2024/06/07 20:02:36 by akambou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void draw_3D(t_game *game)
         while (j < ray_width)
         {
             my_mlx_pixel_put(&game->data, \
-            game->rays->ray * ray_width + j, i, 0x2200FF00);
+            game->rays->ray * ray_width + j, i, 0x000037);
             j++;
         }
         i++;
@@ -56,10 +56,10 @@ void draw_3D(t_game *game)
             // img si i = height offset = lenght
             if (i < game->map.win_h && game->rays->h_length < game->rays->v_length) 
                 my_mlx_pixel_put(&game->data, game->rays->ray * \
-                ray_width + j, i, 0x22FF0000);
+                ray_width + j, i, 0xA0A0A0);
             else if (i < game->map.win_h && game->rays->h_length > game->rays->v_length)
                 my_mlx_pixel_put(&game->data, game->rays->ray * \
-                ray_width + j, i, 0x22FF00FF);
+                ray_width + j, i, 0x808080);
             j++;
         }
         i++;
@@ -70,7 +70,7 @@ void draw_3D(t_game *game)
         while (j < ray_width)
         {
             my_mlx_pixel_put(&game->data, \
-            game->rays->ray * ray_width + j, i, 0x220000FF);
+            game->rays->ray * ray_width + j, i, 0x222020);
             j++;
         }
         i++;
@@ -101,10 +101,10 @@ void draw_map(t_game *game)
                 game->map.j = 0;
                 while ( game->map.j <  game->map.cellSize)
                 {
-                    mlx_pixel_put(game->data.mlx_ptr, game->data.win_ptr,\
-                    game->map.x * game->map.mapS + game->map.j, \
-                    game->map.y * game->map.mapS + game->map.i, \
-                    game->map.color);
+                    // mlx_pixel_put(game->data.mlx_ptr, game->data.win_ptr,\
+                    // game->map.x * game->map.mapS + game->map.j, \
+                    // game->map.y * game->map.mapS + game->map.i, \
+                    // game->map.color);
                     game->map.j++;
                 }
                 game->map.i++;

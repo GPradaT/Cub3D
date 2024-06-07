@@ -6,7 +6,7 @@
 /*   By: akambou <akambou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 05:42:43 by kmb               #+#    #+#             */
-/*   Updated: 2024/06/07 18:45:15 by akambou          ###   ########.fr       */
+/*   Updated: 2024/06/07 20:02:57 by akambou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,8 @@ void draw_player_angle(t_game *game, int rayIndex, int length)
     {
         x += xIncrement;
         y += yIncrement;
-        mlx_pixel_put(game->data.mlx_ptr, \
-        game->data.win_ptr, round(x), round(y), 0xFFFFFF);
+        // mlx_pixel_put(game->data.mlx_ptr, \
+        // game->data.win_ptr, round(x), round(y), 0xFFFFFF);
         k++;
     }
 }
