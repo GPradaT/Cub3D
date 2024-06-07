@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   player.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nobmk <nobmk@student.42.fr>                +#+  +:+       +#+        */
+/*   By: akambou <akambou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 05:42:43 by kmb               #+#    #+#             */
-/*   Updated: 2024/05/26 10:43:53 by nobmk            ###   ########.fr       */
+/*   Updated: 2024/06/07 18:45:15 by akambou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-// Algoritmo de Bresenham para dibujar lineas
 void draw_player(t_game *game, int width, int height, int color)
 {
     int i;
@@ -27,7 +26,7 @@ void draw_player(t_game *game, int width, int height, int color)
         j = 0;
         while (j < width)
         {   
-            mlx_pixel_put(game->mlx.mlx_ptr, game->mlx.win_ptr2, \
+            mlx_pixel_put(game->data.mlx_ptr, game->data.win_ptr, \
              (game->player.x / 4) + j, (game->player.y / 4) + i, color);
             j++;
         }
@@ -69,8 +68,8 @@ void draw_player_angle(t_game *game, int rayIndex, int length)
     {
         x += xIncrement;
         y += yIncrement;
-        mlx_pixel_put(game->mlx.mlx_ptr, \
-        game->mlx.win_ptr2, round(x), round(y), 0xFFFFFF);
+        mlx_pixel_put(game->data.mlx_ptr, \
+        game->data.win_ptr, round(x), round(y), 0xFFFFFF);
         k++;
     }
 }
@@ -128,7 +127,7 @@ int key_press(int keycode, t_game *game)
     else if (keycode == KEY_ESC || keycode == EVENT_CLOSE_BTN)
         exit(0);
 
-    if (!is_wall(game, nextX, nextY)) {
+    if (!is_wall(game, nextX, nextY) && game->rays->line_offset >= 3.50000) {
         game->player.x = nextX;
         game->player.y = nextY;
     }

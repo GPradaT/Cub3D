@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nobmk <nobmk@student.42.fr>                +#+  +:+       +#+        */
+/*   By: akambou <akambou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 03:07:46 by kmb               #+#    #+#             */
-/*   Updated: 2024/05/26 06:58:07 by nobmk            ###   ########.fr       */
+/*   Updated: 2024/06/07 16:14:20 by akambou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,7 @@ int main(int argc, char **argv)
 		return (FAILURE);
 	do_map(&game);
     init_game(&game);
-    mlx_hook(game.mlx.win_ptr, 17, 0, close_window, &game);
-    mlx_hook(game.mlx.win_ptr, 2, 1L<<0, key_press, &game);
-    mlx_loop_hook(game.mlx.mlx_ptr, loop, &game);
-    mlx_loop(game.mlx.mlx_ptr);
+    mlx_hook(game.data.win_ptr, 2, 1, key_press, &game);
+    mlx_loop_hook(game.data.mlx_ptr, loop, &game);
+    mlx_loop(game.data.mlx_ptr);
 }
