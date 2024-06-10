@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akambou <akambou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 03:06:23 by kmb               #+#    #+#             */
-/*   Updated: 2024/06/07 19:32:13 by akambou          ###   ########.fr       */
+/*   Updated: 2024/06/10 12:46:10 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,10 @@ typedef struct s_ray
 
 typedef struct s_color
 {
-    int r, g, b;
+	int	r;
+	int	g;
+	int	b;
+	int	color;
 }   t_color;
 
 typedef struct s_map
@@ -74,8 +77,8 @@ typedef struct s_map
 	char	*south_texture;
 	char	*west_texture;
 	char	*east_texture;
-	t_color	floor_color;
-	t_color	ceiling_color;
+	t_color	floor;
+	t_color	ceiling;
 	int		*map;
 	int		win_w;
 	int		win_h;
@@ -116,13 +119,18 @@ extern int map[];
 
 
 //-----------------------PARSING-----------------------------------------------
-int    		parse_file(t_game *game, char *file);
-void		parse_color(t_game *game, char *line);
-void		parse_texture_and_colors(t_game *game, char *line);
-int			parse_map(t_game *game, char *line);
-//-----------------------PROTOTYPES--------------------------------------------
+int		parse_file(t_game *game, char *argv);
+int	parse_color(t_game *game, char *line);
+void	parse_texture_and_colors(t_game *game, char *line);
+int		parse_map(t_game *game, char *line);
+//-----------------------ERROR-------------------------------------------------
+int		cub_error(char *str, int error);
+//-----------------------CHECK--------------------------------------------------
+int		textures_and_colors_get(t_game *game);
+int		mapping(t_game *game);
 //-----------------------INIT--------------------------------------------------
-void    	init_game(t_game *game);
+void    init_game(t_game *game);
+void    init_parsing_data(t_game *game);
 //-----------------------LOOP--------------------------------------------------
 int     	loop(t_game *game);
 //--------------------WINDOW--------------------------------------------------

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   window.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akambou <akambou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 05:49:01 by kmb               #+#    #+#             */
-/*   Updated: 2024/06/07 20:02:36 by akambou          ###   ########.fr       */
+/*   Updated: 2024/06/10 12:49:58 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void draw_3D(t_game *game)
     int ray_width = game->map.win_w / 120;
     game->rays->line_height = (game->map.mapS * \
     game->map.win_h) / game->rays->total_length;
-    
+
     if (game->rays->line_height > game->map.win_h)
         game->rays->line_height = game->map.win_h;
     game->rays->line_offset = game->map.win_h / 2 - \
@@ -42,7 +42,7 @@ void draw_3D(t_game *game)
         while (j < ray_width)
         {
             my_mlx_pixel_put(&game->data, \
-            game->rays->ray * ray_width + j, i, 0x000037);
+            game->rays->ray * ray_width + j, i, game->map.ceiling.color);
             j++;
         }
         i++;
@@ -54,7 +54,7 @@ void draw_3D(t_game *game)
         while (j < ray_width)
         {
             // img si i = height offset = lenght
-            if (i < game->map.win_h && game->rays->h_length < game->rays->v_length) 
+            if (i < game->map.win_h && game->rays->h_length < game->rays->v_length)
                 my_mlx_pixel_put(&game->data, game->rays->ray * \
                 ray_width + j, i, 0xA0A0A0);
             else if (i < game->map.win_h && game->rays->h_length > game->rays->v_length)
@@ -70,7 +70,7 @@ void draw_3D(t_game *game)
         while (j < ray_width)
         {
             my_mlx_pixel_put(&game->data, \
-            game->rays->ray * ray_width + j, i, 0x222020);
+            game->rays->ray * ray_width + j, i, game->map.floor.color);
             j++;
         }
         i++;
@@ -81,11 +81,11 @@ void draw_3D(t_game *game)
 
 void draw_map(t_game *game)
 {
-    
+
     game->map.y = 0;
     game->map.mapS /= 4;
     game->map.cellSize /= 4;
-    
+
     while ( game->map.y <  game->map.mapY)
     {
         game->map.x = 0;
@@ -115,6 +115,6 @@ void draw_map(t_game *game)
         game->map.y++;
     }
     game->map.mapS *= 4;
-    game->map.cellSize *= 4; 
+    game->map.cellSize *= 4;
 
 }
