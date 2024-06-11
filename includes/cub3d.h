@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 03:06:23 by kmb               #+#    #+#             */
-/*   Updated: 2024/06/10 12:46:10 by gprada-t         ###   ########.fr       */
+/*   Updated: 2024/06/11 11:26:30 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,7 @@ void	parse_texture_and_colors(t_game *game, char *line);
 int		parse_map(t_game *game, char *line);
 //-----------------------ERROR-------------------------------------------------
 int		cub_error(char *str, int error);
+int		rgb_to_int(t_color color);
 //-----------------------CHECK--------------------------------------------------
 int		textures_and_colors_get(t_game *game);
 int		mapping(t_game *game);
