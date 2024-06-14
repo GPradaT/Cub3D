@@ -3,17 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
+/*   By: akambou <akambou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 03:07:46 by kmb               #+#    #+#             */
-/*   Updated: 2024/06/10 12:48:31 by gprada-t         ###   ########.fr       */
+/*   Updated: 2024/06/13 03:31:02 by akambou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
-
-// En este caso, la función do_map() se encarga de asignar los valores de la \
-matriz map[] a la estructura map del juego.
+#include <cub3d.h>
 
 int	cub_error(char *str, int error)
 {

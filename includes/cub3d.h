@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
+/*   By: akambou <akambou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 03:06:23 by kmb               #+#    #+#             */
-/*   Updated: 2024/06/11 11:26:30 by gprada-t         ###   ########.fr       */
+/*   Updated: 2024/06/13 02:44:19 by akambou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,34 +51,58 @@
 
 typedef struct s_player
 {
-    double x, y, angle, delta_x, delta_y;
+    double	x;
+	double	y;
+	double	angle;
+	double	delta_x;
+	double	delta_y;
+	float	nextX;
+	float	nextY;
 }   t_player;
 
 typedef struct s_ray
 {
-    float angle, ray_x, ray_y, x_offset, y_offset, \
-    horizontal_x, horizontal_y, vertical_x, vertical_y, \
-    line_height, line_offset;
-    int ray, mx, my, mp, deapht_of_field, h_length, v_length, total_length;
+    float	angle;
+	float	ray_x;
+	float	ray_y;
+	float	x_offset;
+	float	y_offset;
+    float	horizontal_x; 
+	float	horizontal_y; 
+	float	vertical_x;
+	float	vertical_y;
+    float	line_height;
+	float	line_offset;
+    int 	ray_width;
+	int		ray;
+	int		mx;
+	int		my;
+	int		mp;
+	int		deapht_of_field;
+	int		h_length;
+	int		v_length;
+	int		total_length;
+	int		win_i;
+	int		 win_j;
 }   t_ray;
 
 typedef struct s_color
 {
-	int	r;
-	int	g;
-	int	b;
-	int	color;
+	int		r;
+	int		g;
+	int		b;
+	int		color;
 }   t_color;
 
 typedef struct s_map
 {
+	t_color	floor;
+	t_color	ceiling;
 	char	*temp_map;
 	char	*north_texture;
 	char	*south_texture;
 	char	*west_texture;
 	char	*east_texture;
-	t_color	floor;
-	t_color	ceiling;
 	int		*map;
 	int		win_w;
 	int		win_h;
@@ -98,12 +122,27 @@ typedef struct s_map
 
 typedef struct	s_data
 {
-	void    *mlx_ptr, *win_ptr, *win_ptr2;
+	float   wall_x;
+	void    *mlx_ptr;
+	void	*win_ptr;
 	void	*img;
 	char	*addr;
+	char	*n_addr;
+	char	*s_addr;
+	char	*w_addr;
+	char	*e_addr;
+	void	*n_texture;
+	void	*s_texture;
+	void	*w_texture;
+	void	*e_texture;
+	int    	texture_width;
+	int    	texture_height;
+	int	 	texture_x;
+	int	 	texture_y;
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
+	int		color;
 }				t_data;
 
 typedef struct s_game
@@ -119,42 +158,59 @@ extern int map[];
 
 
 //-----------------------PARSING-----------------------------------------------
-int		parse_file(t_game *game, char *argv);
-int	parse_color(t_game *game, char *line);
-void	parse_texture_and_colors(t_game *game, char *line);
-int		parse_map(t_game *game, char *line);
+int			parse_file(t_game *game, char *argv);
+int			parse_color(t_game *game, char *line);
+void		parse_texture_and_colors(t_game *game, char *line);
+int			parse_map(t_game *game, char *line);
+int			rgb_to_int(t_color color);
+
 //-----------------------ERROR-------------------------------------------------
 int		cub_error(char *str, int error);
 int		rgb_to_int(t_color color);
 //-----------------------CHECK--------------------------------------------------
-int		textures_and_colors_get(t_game *game);
-int		mapping(t_game *game);
+int			textures_and_colors_get(t_game *game);
+int			mapping(t_game *game);
+
 //-----------------------INIT--------------------------------------------------
-void    init_game(t_game *game);
-void    init_parsing_data(t_game *game);
-//-----------------------LOOP--------------------------------------------------
+void    	init_game(t_game *game);
+void    	init_map(t_game *game);
+void    	init_window(t_game *game);
+void    	init_parsing_data(t_game *game);
 int     	loop(t_game *game);
+
 //--------------------WINDOW--------------------------------------------------
-void    	draw_map(t_game *game);
+void		my_mlx_pixel_put(t_data *data, int x, int y, int color);
+void    	set_window(t_game *game);
+void    	draw_cealing(t_game *game);
+void    	draw_floor(t_game *game);
+void    	draw_walls(t_game *game);
+void    	draw_window(t_game *game);
+
 //-----------------------PLAYER------------------------------------------------
+void    	spawn_player(t_game *game);
+void    	player_movement(int keycode, t_game *game);
+void		player_angle(int keycode, t_game *game);
 int     	key_press(int keycode, t_game *game);
+int	        is_wall(t_game *game, float x, float y);
+
+//-----------------------MINIMAP----------------------------------------------
+void    	minimap(t_game *game);
+void    	draw_ray(t_game *game, int rayIndex, int lenght);
 void    	draw_player(t_game *game, int width, int height, int color);
-void    	draw_player_angle(t_game *game, int rayIndex, int lenght);
+
 //-----------------------CASTER------------------------------------------------
+float       distance(float x1, float y1, float x2, float y2);
+void        get_angle(t_game *game);
+void        reset_angle(t_game *game);
+void    	chose_lenght(t_game *game);
 void    	cast_rays(t_game *game);
-void    	draw_3D(t_game *game);
-//-----------------------HORIZONTAL--------------------------------------------
 void    	cast_horizontal(t_game *game);
 void   		horizontal_direction(t_game *game);
 void    	reset_horizontal(t_game *game);
-//-----------------------VERTICAL----------------------------------------------
 void    	cast_vertical(t_game *game);
 void    	vertical_direction(t_game *game);
 void	    reset_vertical(t_game *game);
+
 //-----------------------UTILS-------------------------------------------------
-float       distance(float x1, float y1, float x2, float y2);
-void		my_mlx_pixel_put(t_data *data, int x, int y, int color);
-void    	chose_lenght(t_game *game);
-void        reset_angle(t_game *game);
-void        get_angle(t_game *game);
+
 #endif
