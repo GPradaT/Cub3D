@@ -165,8 +165,8 @@ int			parse_map(t_game *game, char *line);
 int			rgb_to_int(t_color color);
 
 //-----------------------ERROR-------------------------------------------------
-int			cub_error(char *str, int error);
-
+int		cub_error(char *str, int error);
+int		rgb_to_int(t_color color);
 //-----------------------CHECK--------------------------------------------------
 int			textures_and_colors_get(t_game *game);
 int			mapping(t_game *game);
