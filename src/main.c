@@ -6,28 +6,16 @@
 /*   By: akambou <akambou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 03:07:46 by kmb               #+#    #+#             */
-/*   Updated: 2024/06/13 03:31:02 by akambou          ###   ########.fr       */
+/*   Updated: 2024/06/15 03:26:00 by akambou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
 
-int	cub_error(char *str, int error)
+int	main(int argc, char **argv)
 {
-	while (*str)
-		write (2, str++, 1);
-	return (error);
-}
-
-int close_window(t_game *game)
-{
-	exit(0);
-}
-
-int main(int argc, char **argv)
-{
-	t_game game;
-	int fd;
+	t_game	game;
+	int		fd;
 
 	if (argc != 2)
 	{
@@ -44,6 +32,8 @@ int main(int argc, char **argv)
 	if (mapping(&game))
 		return (cub_error("Error\nInvalid map\n", FAILURE));
 	init_game(&game);
+	mlx_hook(game.data.win_ptr, MotionNotify, \
+	PointerMotionMask, &mouse_move, &game);
 	mlx_hook(game.data.win_ptr, 2, 1, key_press, &game);
 	mlx_loop_hook(game.data.mlx_ptr, loop, &game);
 	mlx_loop(game.data.mlx_ptr);
