@@ -6,7 +6,7 @@
 /*   By: akambou <akambou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 21:12:01 by akambou           #+#    #+#             */
-/*   Updated: 2024/06/15 06:18:55 by akambou          ###   ########.fr       */
+/*   Updated: 2024/06/15 10:46:27 by akambou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,9 @@ void	set_window(t_game *game)
 		return ;
 	game->map.win_w = 1920;
 	game->map.win_h = 1080;
-	game->rays->ray_width = game->map.win_w / 90;
+	game->rays->ray_width = game->map.win_w / 120;
 	game->rays->line_height = (game->map.maps * \
-	game->map.win_w) / game->rays->total_length * 0.5;
+	game->map.win_w) / game->rays->total_length * 0.4;
 	if (game->rays->line_height > game->map.win_h)
 		game->rays->line_height = game->map.win_h;
 	if (game->rays->line_height == 0)

@@ -6,7 +6,7 @@
 /*   By: akambou <akambou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 22:13:19 by akambou           #+#    #+#             */
-/*   Updated: 2024/06/15 03:25:50 by akambou          ###   ########.fr       */
+/*   Updated: 2024/06/15 10:54:27 by akambou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	init_floor_and_cealing(t_game *game)
 	&game->data.bits_per_pixel, &game->data.line_length, \
 	&game->data.endian);
 	game->data.c_texture = mlx_xpm_file_to_image(game->data.mlx_ptr, \
-	"./textures/blue.xpm", &game->data.texture_width, \
+	"./textures/wood.xpm", &game->data.texture_width, \
 	&game->data.texture_height);
 	game->data.ceiling_addr = mlx_get_data_addr(game->data.c_texture, \
 	&game->data.bits_per_pixel, &game->data.line_length, \

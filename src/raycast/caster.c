@@ -6,7 +6,7 @@
 /*   By: akambou <akambou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 22:42:26 by akambou           #+#    #+#             */
-/*   Updated: 2024/06/15 03:24:59 by akambou          ###   ########.fr       */
+/*   Updated: 2024/06/15 10:33:51 by akambou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	cast_rays(t_game *game)
 {
 	get_angle(game);
 	game->rays->ray = 0;
-	while (game->rays->ray < 90)
+	while (game->rays->ray < 120)
 	{
 		mlx_mouse_move(game->data.mlx_ptr, game->data.win_ptr, \
 		(game->map.win_w / 2) - 420, game->map.win_h / 2);
