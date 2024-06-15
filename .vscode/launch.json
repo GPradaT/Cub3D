@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": false,
-      "cwd": "/home/akambou/Desktop/42/progres/Cub3D/src",
-      "program": "/home/akambou/Desktop/42/progres/Cub3D/src/build/Debug/outDebug",
+      "cwd": "/home/akambou/Desktop/progres/Cub3D/src/gameplay",
+      "program": "/home/akambou/Desktop/progres/Cub3D/src/gameplay/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
