@@ -6,7 +6,7 @@
 /*   By: akambou <akambou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 21:40:38 by akambou           #+#    #+#             */
-/*   Updated: 2024/06/15 02:18:23 by akambou          ###   ########.fr       */
+/*   Updated: 2024/06/17 09:22:26 by akambou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,9 @@ void	set_cell(t_game *game)
 {
 	game->map.cell = game->map.map[game->map.y \
 	* game->map.mapx + game->map.x];
-	if (game->map.cell == 1)
+	if (!game->map.cell)
+		game->map.color = 0xFFFFFF;
+	else if (game->map.cell == 1)
 		game->map.color = 0x0000FF;
 	else
 		game->map.color = 0x808080;
@@ -81,6 +83,9 @@ void	set_cell(t_game *game)
 
 void	minimap(t_game *game)
 {
+	game->rays->angle = game->player.angle - (DR);
+	draw_ray(game, 0, 200);
+	game->rays->angle = game->player.angle + (DR);
 	while (game->map.y < game->map.mapy)
 	{
 		game->map.x = 0;
