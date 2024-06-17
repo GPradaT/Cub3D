@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akambou <akambou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 12:51:00 by gprada-t          #+#    #+#             */
-/*   Updated: 2024/06/14 23:10:11 by akambou          ###   ########.fr       */
+/*   Updated: 2024/06/17 19:57:33 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
 
-void    init_parsing_data(t_game *game)
+void	init_parsing_data(t_game *game)
 {
-    game->map.floor.b = -1;
+	game->map.floor.b = -1;
 	game->map.floor.g = -1;
 	game->map.floor.r = -1;
 	game->map.floor.color = 0;
