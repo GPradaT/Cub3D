@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 15:47:08 by gprada-t          #+#    #+#             */
-/*   Updated: 2024/06/17 21:15:13 by gprada-t         ###   ########.fr       */
+/*   Updated: 2024/06/17 22:12:21 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ int		mapping(t_game *game)
 	}
 	setting_map_x_map_y(game->map.temp_map, game);
 	game->map.map = str_to_int_array(game->map.temp_map, game->map.mapx, game->map.mapy);
-	//free(game->map.temp_map);
+	free(game->map.temp_map);
 	//if (check_closed_map(game))
 	//	return (cub_error("Error\nMap is open\n", FAILURE));
 	return (SUCCESS);

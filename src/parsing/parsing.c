@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 09:18:04 by gprada-t          #+#    #+#             */
-/*   Updated: 2024/06/17 22:03:45 by gprada-t         ###   ########.fr       */
+/*   Updated: 2024/06/17 22:14:41 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void	parse_texture_and_colors(t_game *game, char *line)
 		parse_color(game, new_line);
 	else if (ft_strncmp(new_line, "C", 1) == SUCCESS)
 		parse_color(game, new_line);
+	free(new_line);
 }
 
 int	parse_map(t_game *game, char *line)
