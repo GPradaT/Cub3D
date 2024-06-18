@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akambou <akambou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 23:00:41 by akambou           #+#    #+#             */
-/*   Updated: 2024/06/17 14:09:19 by akambou          ###   ########.fr       */
+/*   Updated: 2024/06/18 17:25:29 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,137 +54,139 @@
 
 typedef struct s_player
 {
-	double	x;
-	double	y;
-	double	angle;
-	double	delta_x;
-	double	delta_y;
-	float	nextx;
-	float	nexty;
-	float	speed;
-	float	mouse_x;
+	double		x;
+	double		y;
+	double		angle;
+	double		delta_x;
+	double		delta_y;
+	float		nextx;
+	float		nexty;
+	float		speed;
+	float		mouse_x;
 }	t_player;
 
 typedef struct s_ray
 {
-	float	angle;
-	float	ray_x;
-	float	ray_y;
-	float	x_offset;
-	float	y_offset;
-	float	horizontal_x;
-	float	horizontal_y;
-	float	vertical_x;
-	float	vertical_y;
-	float	line_height;
-	float	line_offset;
-	int		ray_width;
-	int		ray;
-	int		mx;
-	int		my;
-	int		mp;
-	int		deapht_of_field;
-	int		h_length;
-	int		v_length;
-	int		total_length;
-	int		win_i;
-	int		win_j;
+	float		angle;
+	float		ray_x;
+	float		ray_y;
+	float		x_offset;
+	float		y_offset;
+	float		horizontal_x;
+	float		horizontal_y;
+	float		vertical_x;
+	float		vertical_y;
+	float		line_height;
+	float		line_offset;
+	int			ray_width;
+	int			ray;
+	int			mx;
+	int			my;
+	int			mp;
+	int			deapht_of_field;
+	int			h_length;
+	int			v_length;
+	int			total_length;
+	int			win_i;
+	int			win_j;
 }	t_ray;
 
 typedef struct s_color
 {
-	int		r;
-	int		g;
-	int		b;
-	int		color;
+	int			r;
+	int			g;
+	int			b;
+	int			color;
+	char		*texture;
 }	t_color;
 
 typedef struct s_map
 {
-	t_color	floor;
-	t_color	ceiling;
-	char	*temp_map;
-	char	*north_texture;
-	char	*south_texture;
-	char	*west_texture;
-	char	*east_texture;
-	int		*map;
-	int		win_w;
-	int		win_h;
-	int		width;
-	int		height;
-	int		mapx;
-	int		mapy;
-	int		maps;
-	int		cellsize;
-	int		x;
-	int		y;
-	int		i;
-	int		j;
-	int		cell;
-	int		color;
+	t_color		floor;
+	t_color		ceiling;
+	char		*temp_map;
+	char		*north_texture;
+	char		*south_texture;
+	char		*west_texture;
+	char		*east_texture;
+	int			*map;
+	int			win_w;
+	int			win_h;
+	int			width;
+	int			height;
+	int			mapx;
+	int			mapy;
+	int			maps;
+	int			cellsize;
+	int			x;
+	int			y;
+	int			i;
+	int			j;
+	int			cell;
+	int			color;
+	int			player;
 }	t_map;
 
 typedef struct s_data
 {
-	float	wall_x;
-	float	current_dist;
-	float	weight;
-	float	current_ceiling_x;
-	float	current_ceiling_y;
-	float	current_floor_x;
-	float	current_floor_y;
-	void	*mlx_ptr;
-	void	*win_ptr;
-	void	*img;
-	char	*addr;
-	char	*n_addr;
-	char	*s_addr;
-	char	*w_addr;
-	char	*e_addr;
-	char	*floor_addr;
-	char	*ceiling_addr;
-	char	*weapon_addr;
-	char	*shot_addr;
-	char	*crosshair_addr;
-	char	*life_addr;
-	char	*door_addr;
-	char	*door1_addr;
-	void	*door1_texture;
-	void	*door_texture;
-	void	*shot_texture;
-	void	*life_texture;
-	void	*crosshair_texture;
-	void	*weapon_texture;
-	void	*n_texture;
-	void	*s_texture;
-	void	*w_texture;
-	void	*e_texture;
-	void	*f_texture;
-	void	*c_texture;
-	int		texture_width;
-	int		texture_height;
-	int		texture_x;
-	int		texture_y;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-	int		color;
+	float		wall_x;
+	float		current_dist;
+	float		weight;
+	float		current_ceiling_x;
+	float		current_ceiling_y;
+	float		current_floor_x;
+	float		current_floor_y;
+	void		*mlx_ptr;
+	void		*win_ptr;
+	void		*img;
+	char		*addr;
+	char		*n_addr;
+	char		*s_addr;
+	char		*w_addr;
+	char		*e_addr;
+	char		*floor_addr;
+	char		*ceiling_addr;
+	char		*weapon_addr;
+	char		*shot_addr;
+	char		*crosshair_addr;
+	char		*life_addr;
+	char		*door_addr;
+	char		*door1_addr;
+	void		*door1_texture;
+	void		*door_texture;
+	void		*shot_texture;
+	void		*life_texture;
+	void		*crosshair_texture;
+	void		*weapon_texture;
+	void		*n_texture;
+	void		*s_texture;
+	void		*w_texture;
+	void		*e_texture;
+	void		*f_texture;
+	void		*c_texture;
+	int			texture_width;
+	int			texture_height;
+	int			texture_x;
+	int			texture_y;
+	int			bits_per_pixel;
+	int			line_length;
+	int			endian;
+	int			color;
 }				t_data;
 
 typedef struct s_line
 {
-	int		dx;
-	int		dy;
-	int		steps;
-	int		k;
-	float	xincrement;
-	float	yincrement;
-	float	x;
-	float	y;
-	t_ray	*ray;
-	int		end_x;
-	int		end_y;
+	int			dx;
+	int			dy;
+	int			steps;
+	int			k;
+	float		xincrement;
+	float		yincrement;
+	float		x;
+	float		y;
+	t_ray		*ray;
+	int			end_x;
+	int			end_y;
 }	t_line;
 
 typedef struct s_game
@@ -203,6 +205,7 @@ int			parse_color(t_game *game, char *line);
 void		parse_texture_and_colors(t_game *game, char *line);
 int			parse_map(t_game *game, char *line);
 int			rgb_to_int(t_color color);
+char		*get_path(char *str);
 
 //-----------------------ERROR-------------------------------------------------
 int			cub_error(char *str, int error);
@@ -210,13 +213,15 @@ int			cub_error(char *str, int error);
 //-----------------------CHECK--------------------------------------------------
 int			textures_and_colors_get(t_game *game);
 int			mapping(t_game *game);
+int			invalid_texture(t_game *game);
+int			check_doors(t_game *game);
 
 //-----------------------INIT--------------------------------------------------
-void		init_game(t_game *game);
+int			init_game(t_game *game);
 void		init_map(t_game *game);
-void		init_window(t_game *game);
+int			init_window(t_game *game);
 void		init_parsing_data(t_game *game);
-void		init_textures(t_game *game);
+int			init_textures(t_game *game);
 void		init_hud(t_game *game);
 void		init_floor_ceiling_and_doors(t_game *game);
 int			loop(t_game *game);

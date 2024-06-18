@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   window.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akambou <akambou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 21:12:01 by akambou           #+#    #+#             */
-/*   Updated: 2024/06/17 13:14:33 by akambou          ###   ########.fr       */
+/*   Updated: 2024/06/18 18:59:55 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,24 @@ void	draw_ceiling(t_game *game)
 		game->rays->win_j = 0;
 		while (game->rays->win_j < game->rays->ray_width)
 		{
-			texture_pos_cf(game);
-			game->data.color = get_texture_color1((int *) \
-			game->data.ceiling_addr, game->data.texture_x / 3, \
-			game->data.texture_y / 3, game);
-			my_mlx_pixel_put(&game->data, game->rays->ray * \
-			game->rays->ray_width + game->rays->win_j, \
-			game->rays->win_i, game->data.color);
-			game->rays->win_j++;
+			if (game->data.ceiling_addr != NULL)
+			{
+				texture_pos_cf(game);
+				game->data.color = get_texture_color1((int *) \
+				game->data.ceiling_addr, game->data.texture_x / 3, \
+				game->data.texture_y / 3, game);
+				my_mlx_pixel_put(&game->data, game->rays->ray * \
+				game->rays->ray_width + game->rays->win_j, \
+				game->rays->win_i, game->data.color);
+				game->rays->win_j++;
+			}
+			else
+			{
+				my_mlx_pixel_put(&game->data, game->rays->ray * \
+				game->rays->ray_width + game->rays->win_j, \
+				game->rays->win_i, game->map.ceiling.color);
+				game->rays->win_j++;
+			}
 		}
 		game->rays->win_i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 18:03:29 by gprada-t          #+#    #+#             */
-/*   Updated: 2024/06/17 18:10:49 by gprada-t         ###   ########.fr       */
+/*   Updated: 2024/06/18 19:15:04 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,14 @@ int	get_color(char *line)
 	return (i);
 }
 
+//int	path_or_color(t_game *game, char *line)
+//{
+//	while (ft_isspace(*line))
+//		line++;
+//	if (ft_isdigit(*line))
+//		return (set_path(game, line));
+//}
+
 int	get_rgb(t_color *color, char *line)
 {
 	if (color->r == -1)
@@ -44,7 +52,7 @@ int	get_rgb(t_color *color, char *line)
 		color->b = get_color(line);
 	if (color->r < 0 || color->r > 255 || color->g < 0 || color->g > 255
 		|| color->b < 0 || color->b > 255)
-		return (cub_error("\nValues out of range\n", FAILURE));
+		return (-3);
 	return (SUCCESS);
 }
 

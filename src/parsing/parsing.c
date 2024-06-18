@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 09:18:04 by gprada-t          #+#    #+#             */
-/*   Updated: 2024/06/17 22:14:41 by gprada-t         ###   ########.fr       */
+/*   Updated: 2024/06/18 19:12:12 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,21 +61,25 @@ void	parse_texture_and_colors(t_game *game, char *line)
 		game->map.east_texture = get_path(new_line + 2);
 	else if (ft_strncmp(new_line, "WE", 2) == 0)
 		game->map.west_texture = get_path(new_line + 2);
-	else if (ft_strncmp(new_line, "F", 1) == SUCCESS)
+	else if (ft_strncmp(new_line, "F", 1) == 0)
 		parse_color(game, new_line);
-	else if (ft_strncmp(new_line, "C", 1) == SUCCESS)
+	else if (ft_strncmp(new_line, "C", 1) == 0)
 		parse_color(game, new_line);
 	free(new_line);
 }
 
+int	is_accepted_char(char c)
+{
+	return (c == ' ' || c == '0' || c == '1' || c == '2'
+		|| c == 'N' || c == 'S' || c == 'E' || c == 'W');
+}
+
 int	parse_map(t_game *game, char *line)
 {
-	int			i;
-	static int	tab_count = 0;
-	static int	player = 0;
+	int	i;
 
 	i = 0;
-	while (line[i])
+	while (line[i] && is_accepted_char(line[i]))
 	{
 		if (line[i] == 'N' || line[i] == 'S'
 			|| line[i] == 'E' || line[i] == 'W')
@@ -83,10 +87,9 @@ int	parse_map(t_game *game, char *line)
 			game->player.x = i;
 			game->player.y = game->map.mapy;
 			game->player.angle = line[i];
-			player++;
-			if (player > 1)
-				return (free(game->map.temp_map), cub_error("Error\nInvalid map, \
-					cannot be more than 1 player\n", FAILURE));
+			game->map.player++;
+			if (game->map.player > 1)
+				return (cub_error("Error\nOnly 1 player videogame sorry\n", FAILURE));
 		}
 		i++;
 	}

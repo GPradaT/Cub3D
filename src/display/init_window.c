@@ -1,25 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec.c                                             :+:      :+:    :+:   */
+/*   init_window.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akambou <akambou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 22:13:19 by akambou           #+#    #+#             */
-/*   Updated: 2024/06/17 14:00:09 by akambou          ###   ########.fr       */
+/*   Updated: 2024/06/18 19:14:21 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
 
-void	init_map(t_game *game)
-{
-	game->map.height = (game->map.mapy * game->map.maps);
-	game->map.width = (game->map.mapx * game->map.maps);
-	game->map.cell = game->map.map[game->map.y * \
-	game->map.mapx + game->map.x];
-	game->map.cellsize = game->map.maps - 1;
-}
+//---->>> me falta trasladar comprobar si es path para meter el color por textura o por color
+//----> me falta controlar que soolo haya  1 jugador  de vdd con el mapa que tengo de colorfulled
 
 void	init_floor_ceiling_and_doors(t_game *game)
 {
@@ -35,73 +29,62 @@ void	init_floor_ceiling_and_doors(t_game *game)
 	game->data.ceiling_addr = mlx_get_data_addr(game->data.c_texture, \
 	&game->data.bits_per_pixel, &game->data.line_length, \
 	&game->data.endian);
-	game->data.door_texture = mlx_xpm_file_to_image(game->data.mlx_ptr, \
-	"./textures/door.xpm", &game->data.texture_width, \
-	&game->data.texture_height);
-	game->data.door_addr = mlx_get_data_addr(game->data.door_texture, \
-	&game->data.bits_per_pixel, &game->data.line_length, \
-	&game->data.endian);
-	game->data.door1_texture = mlx_xpm_file_to_image(game->data.mlx_ptr, \
-	"./textures/door_o.xpm", &game->data.texture_width, \
-	&game->data.texture_height);
-	game->data.door1_addr = mlx_get_data_addr(game->data.door1_texture, \
-	&game->data.bits_per_pixel, &game->data.line_length, \
-	&game->data.endian);
 }
 
-void	init_textures(t_game *game)
+int	init_textures(t_game *game)
 {
 	init_hud(game);
-	game->data.n_texture = mlx_xpm_file_to_image(game->data.mlx_ptr, \
-	game->map.north_texture, &game->data.texture_width, \
-	&game->data.texture_height);
+	if (invalid_texture(game))
+		return (FAILURE);
 	game->data.n_addr = mlx_get_data_addr(game->data.n_texture, \
 	&game->data.bits_per_pixel, &game->data.line_length, \
 	&game->data.endian);
-	game->data.s_texture = mlx_xpm_file_to_image(game->data.mlx_ptr, \
-	game->map.south_texture, &game->data.texture_width, \
-	&game->data.texture_height);
 	game->data.s_addr = mlx_get_data_addr(game->data.s_texture, \
 	&game->data.bits_per_pixel, &game->data.line_length, &game->data.endian);
-	game->data.w_texture = mlx_xpm_file_to_image(game->data.mlx_ptr, \
-	game->map.west_texture, &game->data.texture_width, \
-	&game->data.texture_height);
 	game->data.w_addr = mlx_get_data_addr(game->data.w_texture, \
 	&game->data.bits_per_pixel, &game->data.line_length, &game->data.endian);
-	game->data.e_texture = mlx_xpm_file_to_image(game->data.mlx_ptr, \
-	game->map.east_texture, &game->data.texture_width, \
-	&game->data.texture_height);
 	game->data.e_addr = mlx_get_data_addr(game->data.e_texture, \
 	&game->data.bits_per_pixel, &game->data.line_length, \
 	&game->data.endian);
+	if (!game->data.n_addr || !game->data.s_addr || !game->data.w_addr \
+		|| !game->data.e_addr)
+		return (FAILURE);
 	init_floor_ceiling_and_doors(game);
+	return (SUCCESS);
 }
 
-void	init_window(t_game *game)
+int	init_window(t_game *game)
 {
 	game->data.mlx_ptr = mlx_init();
-	init_textures(game);
+	if (init_textures(game))
+	 return (-12);
 	game->data.win_ptr = mlx_new_window(game->data.mlx_ptr, \
 	1200, 800, "Game");
 	game->data.img = mlx_new_image(game->data.mlx_ptr, \
 	1200, 800);
 	game->data.addr = mlx_get_data_addr(game->data.img, \
 	&game->data.bits_per_pixel, &game->data.line_length, &game->data.endian);
+	return (SUCCESS);
 }
 
-void	init_game(t_game *game)
+int	init_game(t_game *game)
 {
 	int	x;
 	int	y;
+	int	error;
 
 	x = 0;
 	y = 0;
+	error = 0;
 	init_map(game);
-	init_window(game);
+	error = init_window(game);
+	if (error != SUCCESS)
+		return (error);
 	spawn_player(game);
 	game->player.angle -= (M_PI / 6);
 	game->map.height = game->map.mapy;
 	game->map.width = game->map.mapx;
 	game->map.win_h = (game->map.mapy * game->map.maps);
 	game->map.win_w = (game->map.mapx * game->map.maps);
+	return (SUCCESS);
 }
