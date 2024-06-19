@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 22:13:19 by akambou           #+#    #+#             */
-/*   Updated: 2024/06/18 19:14:21 by gprada-t         ###   ########.fr       */
+/*   Updated: 2024/06/19 02:42:43 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,18 @@ void	init_floor_ceiling_and_doors(t_game *game)
 	"./textures/metal1.xpm", &game->data.texture_width, \
 	&game->data.texture_height);
 	game->data.ceiling_addr = mlx_get_data_addr(game->data.c_texture, \
+	&game->data.bits_per_pixel, &game->data.line_length, \
+	&game->data.endian);
+	game->data.door_texture = mlx_xpm_file_to_image(game->data.mlx_ptr, \
+	"./textures/door.xpm", &game->data.texture_width, \
+	&game->data.texture_height);
+	game->data.door_addr = mlx_get_data_addr(game->data.door_texture, \
+	&game->data.bits_per_pixel, &game->data.line_length, \
+	&game->data.endian);
+	game->data.door1_texture = mlx_xpm_file_to_image(game->data.mlx_ptr, \
+	"./textures/door_o.xpm", &game->data.texture_width, \
+	&game->data.texture_height);
+	game->data.door1_addr = mlx_get_data_addr(game->data.door1_texture, \
 	&game->data.bits_per_pixel, &game->data.line_length, \
 	&game->data.endian);
 }
@@ -71,15 +83,11 @@ int	init_game(t_game *game)
 {
 	int	x;
 	int	y;
-	int	error;
 
 	x = 0;
 	y = 0;
-	error = 0;
 	init_map(game);
-	error = init_window(game);
-	if (error != SUCCESS)
-		return (error);
+	init_window(game);
 	spawn_player(game);
 	game->player.angle -= (M_PI / 6);
 	game->map.height = game->map.mapy;
