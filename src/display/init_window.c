@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 22:13:19 by akambou           #+#    #+#             */
-/*   Updated: 2024/06/19 08:17:59 by akambou          ###   ########.fr       */
+/*   Updated: 2024/06/19 13:02:19 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	init_doors(t_game *game)
 	game->data.door1_addr = mlx_get_data_addr(game->data.door1_texture, \
 	&game->data.bits_per_pixel, &game->data.line_length, \
 	&game->data.endian);
-  game->data.enem_texture = mlx_xpm_file_to_image(game->data.mlx_ptr, \
+	game->data.enem_texture = mlx_xpm_file_to_image(game->data.mlx_ptr, \
 	"./textures/door.xpm", &game->data.texture_width, \
 	&game->data.texture_height);
 	game->data.enem_addr = mlx_get_data_addr(game->data.enem_texture, \
@@ -46,18 +46,6 @@ void	init_floor_ceiling_and_doors(t_game *game)
 	"./textures/metal1.xpm", &game->data.texture_width, \
 	&game->data.texture_height);
 	game->data.ceiling_addr = mlx_get_data_addr(game->data.c_texture, \
-	&game->data.bits_per_pixel, &game->data.line_length, \
-	&game->data.endian);
-	game->data.door_texture = mlx_xpm_file_to_image(game->data.mlx_ptr, \
-	"./textures/door.xpm", &game->data.texture_width, \
-	&game->data.texture_height);
-	game->data.door_addr = mlx_get_data_addr(game->data.door_texture, \
-	&game->data.bits_per_pixel, &game->data.line_length, \
-	&game->data.endian);
-	game->data.door1_texture = mlx_xpm_file_to_image(game->data.mlx_ptr, \
-	"./textures/door_o.xpm", &game->data.texture_width, \
-	&game->data.texture_height);
-	game->data.door1_addr = mlx_get_data_addr(game->data.door1_texture, \
 	&game->data.bits_per_pixel, &game->data.line_length, \
 	&game->data.endian);
 	init_doors(game);
@@ -86,12 +74,11 @@ int	init_textures(t_game *game)
 }
 
 void	init_window(t_game *game)
-{	
+{
 	game->map.win_w = 1200;
 	game->map.win_h = 800;
 	game->data.mlx_ptr = mlx_init();
-	if (init_textures(game))
-		return (-12);
+	init_textures(game);
 	game->data.win_ptr = mlx_new_window(game->data.mlx_ptr, \
 	game->map.win_w, game->map.win_h, "Game");
 	game->data.img = mlx_new_image(game->data.mlx_ptr, \
@@ -108,7 +95,6 @@ int	init_game(t_game *game)
 	x = 0;
 	y = 0;
 	game->focus = 1;
-	init_map_size(game);
 	init_window(game);
 	spawn_player(game);
 	game->player.angle -= (M_PI / 6);

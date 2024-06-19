@@ -6,22 +6,11 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 09:18:04 by gprada-t          #+#    #+#             */
-/*   Updated: 2024/06/19 09:08:45 by akambou          ###   ########.fr       */
+/*   Updated: 2024/06/19 17:01:52 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
-
-int	textures_and_colors_get(t_game *game)
-{
-	if (game->map.north_texture && game->map.south_texture
-		&& game->map.east_texture && game->map.west_texture
-		&& game->map.floor.r != -1 && game->map.floor.g != -1
-		&& game->map.floor.b != -1 && game->map.ceiling.r != -1
-		&& game->map.ceiling.g != -1 && game->map.ceiling.b != -1)
-		return (TRUE);
-	return (FALSE);
-}
 
 char	*get_path(char *str)
 {
