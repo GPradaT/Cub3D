@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 15:47:08 by gprada-t          #+#    #+#             */
-/*   Updated: 2024/06/18 19:15:28 by gprada-t         ###   ########.fr       */
+/*   Updated: 2024/06/19 03:11:32 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int	*str_to_int_array(char *map, int x, int y)
 	array = malloc(sizeof(int) * (x * y + 1));
 	if (!array)
 		return (NULL);
-	//printf("x: %d, y: %d, x * y: %d\n", x, y, x * y);
 	while (map[i] && index < (x * y + 1))
 	{
 		if (map[i] == '0')
@@ -100,15 +99,21 @@ int	check_closed_map(t_game *game)
 {
 	int	i;
 	int	j;
+	int	idx;
 
 	j = 0;
 	i = 0;
+	idx = 0;
 	if (game->map.mapx < 3 || game->map.mapy < 3)
-		return cub_error("Error\nToo Small map\n", FAILURE);
-	for (j = 0; j < game->map.mapy; j++) {
-		for (i = 0; i < game->map.mapx; i++) {
-			int idx = j * game->map.mapx + i;
-			if (game->map.map[idx] == 0) {
+		return (cub_error("Error\nToo Small map\n", FAILURE));
+	while (j < game->map.mapy)
+	{
+		i = 0;
+		while (i < game->map.mapx)
+		{
+			idx = j * game->map.mapx + i;
+			if (game->map.map[idx] == 0)
+			{
 				if (i == 0 || i == game->map.mapx - 1 || j == 0
 					|| j == game->map.mapy - 1)
 					return (cub_error("Error\nInvalid map: Open bord\
@@ -127,9 +132,11 @@ int	check_closed_map(t_game *game)
 					return (cub_error("Error\nInvalid map: Near forbidden \
 					element\n", FAILURE));
 			}
+			i++;
 		}
+		j++;
 	}
-	return SUCCESS;
+	return (SUCCESS);
 }
 
 void	clean_map(t_game *game)
@@ -147,21 +154,21 @@ void	clean_map(t_game *game)
 	}
 }
 
-int mapping(t_game *game)
+int	mapping(t_game *game)
 {
 	while (*game->map.temp_map == '\n')
 		game->map.temp_map++;
 	if (!game->map.temp_map)
 		return (cub_error("Error\nInvalid map\n", FAILURE));
 	setting_map_x_map_y(game->map.temp_map, game);
-	game->map.map = str_to_int_array(game->map.temp_map, game->map.mapx, game->map.mapy);
+	game->map.map = str_to_int_array(game->map.temp_map, \
+	game->map.mapx, game->map.mapy);
 	printf("Mapa convertido a array de enteros:\n");
 	print_int_array(game->map.map, game->map.mapx, game->map.mapy);
 	if (game->map.player == 0)
 		return (cub_error("Error\nNo player\n", FAILURE));
-	if (check_closed_map(game)) {
+	if (check_closed_map(game))
 		return (cub_error("Error\nMap is open\n", FAILURE));
-	}
 	clean_map(game);
 	return (SUCCESS);
 }

@@ -6,14 +6,27 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 22:13:19 by akambou           #+#    #+#             */
-/*   Updated: 2024/06/19 02:42:43 by gprada-t         ###   ########.fr       */
+/*   Updated: 2024/06/19 03:00:10 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
 
-//---->>> me falta trasladar comprobar si es path para meter el color por textura o por color
-//----> me falta controlar que soolo haya  1 jugador  de vdd con el mapa que tengo de colorfulled
+void	init_doors(t_game *game)
+{
+	game->data.door_texture = mlx_xpm_file_to_image(game->data.mlx_ptr, \
+	"./textures/door.xpm", &game->data.texture_width, \
+	&game->data.texture_height);
+	game->data.door_addr = mlx_get_data_addr(game->data.door_texture, \
+	&game->data.bits_per_pixel, &game->data.line_length, \
+	&game->data.endian);
+	game->data.door1_texture = mlx_xpm_file_to_image(game->data.mlx_ptr, \
+	"./textures/door_o.xpm", &game->data.texture_width, \
+	&game->data.texture_height);
+	game->data.door1_addr = mlx_get_data_addr(game->data.door1_texture, \
+	&game->data.bits_per_pixel, &game->data.line_length, \
+	&game->data.endian);
+}
 
 void	init_floor_ceiling_and_doors(t_game *game)
 {
@@ -29,18 +42,7 @@ void	init_floor_ceiling_and_doors(t_game *game)
 	game->data.ceiling_addr = mlx_get_data_addr(game->data.c_texture, \
 	&game->data.bits_per_pixel, &game->data.line_length, \
 	&game->data.endian);
-	game->data.door_texture = mlx_xpm_file_to_image(game->data.mlx_ptr, \
-	"./textures/door.xpm", &game->data.texture_width, \
-	&game->data.texture_height);
-	game->data.door_addr = mlx_get_data_addr(game->data.door_texture, \
-	&game->data.bits_per_pixel, &game->data.line_length, \
-	&game->data.endian);
-	game->data.door1_texture = mlx_xpm_file_to_image(game->data.mlx_ptr, \
-	"./textures/door_o.xpm", &game->data.texture_width, \
-	&game->data.texture_height);
-	game->data.door1_addr = mlx_get_data_addr(game->data.door1_texture, \
-	&game->data.bits_per_pixel, &game->data.line_length, \
-	&game->data.endian);
+	init_doors(game);
 }
 
 int	init_textures(t_game *game)
@@ -69,7 +71,7 @@ int	init_window(t_game *game)
 {
 	game->data.mlx_ptr = mlx_init();
 	if (init_textures(game))
-	 return (-12);
+		return (-12);
 	game->data.win_ptr = mlx_new_window(game->data.mlx_ptr, \
 	1200, 800, "Game");
 	game->data.img = mlx_new_image(game->data.mlx_ptr, \

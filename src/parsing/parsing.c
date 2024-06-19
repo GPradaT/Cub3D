@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 09:18:04 by gprada-t          #+#    #+#             */
-/*   Updated: 2024/06/18 19:12:12 by gprada-t         ###   ########.fr       */
+/*   Updated: 2024/06/19 03:03:32 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,18 +68,16 @@ void	parse_texture_and_colors(t_game *game, char *line)
 	free(new_line);
 }
 
-int	is_accepted_char(char c)
-{
-	return (c == ' ' || c == '0' || c == '1' || c == '2'
-		|| c == 'N' || c == 'S' || c == 'E' || c == 'W');
-}
-
 int	parse_map(t_game *game, char *line)
 {
 	int	i;
 
 	i = 0;
-	while (line[i] && is_accepted_char(line[i]))
+	while (line[i] && (line[i] == ' ' || line[i] == '0'
+			|| line[i] == '1' || line[i] == '2'
+			|| line[i] == 'N' || line[i] == 'S'
+			|| line[i] == 'E' || line[i] == 'W'
+			|| line[i] == '7'))
 	{
 		if (line[i] == 'N' || line[i] == 'S'
 			|| line[i] == 'E' || line[i] == 'W')
@@ -87,9 +85,10 @@ int	parse_map(t_game *game, char *line)
 			game->player.x = i;
 			game->player.y = game->map.mapy;
 			game->player.angle = line[i];
-			game->map.player++;
+			game->map.player += 1;
 			if (game->map.player > 1)
-				return (cub_error("Error\nOnly 1 player videogame sorry\n", FAILURE));
+				return (cub_error("Error\n\
+				Only 1 player videogame sorry\n", FAILURE));
 		}
 		i++;
 	}

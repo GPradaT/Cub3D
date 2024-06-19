@@ -3,7 +3,7 @@ SO ./textures/nazi3.xpm
 WE ./textures/nazi2.xpm
 EA ./textures/nazi1.xpm
 
-F ./textures/brickdirty.xpm
+F 100,20,10
 C 225,30,0
 
 		1111111111111111111111111
