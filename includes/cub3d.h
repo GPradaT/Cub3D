@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akambou <akambou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 23:00:41 by akambou           #+#    #+#             */
-/*   Updated: 2024/06/19 09:13:14 by akambou          ###   ########.fr       */
+/*   Updated: 2024/06/18 17:25:29 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,13 @@
 # define CUB3D_H
 //-----------------------DEFINES------------------------------------------------
 # define SUCCESS 0
-# define FAILURE 1
+# define FAILURE 1<<<<<<< RAYCASTING
+10
+ 
+/*   Updated: 2024/06/19 09:13:14 by akambou          ###   ########.fr       */
+11
+ 
+=======
 # define TRUE 1
 # define FALSE 0
 # define FLOOR_COLOR 0xFF0000
@@ -179,17 +185,17 @@ typedef struct s_data
 
 typedef struct s_line
 {
-	int		dx;
-	int		dy;
-	int		steps;
-	int		k;
-	float	xincrement;
-	float	yincrement;
-	float	x;
-	float	y;
-	t_ray	*ray;
-	int		end_x;
-	int		end_y;
+	int			dx;
+	int			dy;
+	int			steps;
+	int			k;
+	float		xincrement;
+	float		yincrement;
+	float		x;
+	float		y;
+	t_ray		*ray;
+	int			end_x;
+	int			end_y;
 }	t_line;
 
 typedef struct s_sprite
@@ -248,9 +254,9 @@ int			check_doors(t_game *game);
 void		init_game(t_game *game);
 void		init_map_size(t_game *game);
 void		init_map(t_game *game);
-void		init_window(t_game *game);
+int			init_window(t_game *game);
 void		init_parsing_data(t_game *game);
-void		init_textures(t_game *game);
+int			init_textures(t_game *game);
 void		init_hud(t_game *game);
 void		init_floor_ceiling_and_doors(t_game *game);
 int			loop(t_game *game);
