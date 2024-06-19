@@ -42,6 +42,8 @@ int	*str_to_int_array(char *map, int x, int y)
 				array[index++] = 2;
 		else if (map[i] == 'D')
 			array[index++] = 7;
+		else if (map[i] == 'O')
+			array[index++] = 8;
 		i++;
 	}
 	return (array);

@@ -14,7 +14,13 @@
 # define CUB3D_H
 //-----------------------DEFINES------------------------------------------------
 # define SUCCESS 0
-# define FAILURE 1
+# define FAILURE 1<<<<<<< RAYCASTING
+10
+ 
+/*   Updated: 2024/06/19 09:13:14 by akambou          ###   ########.fr       */
+11
+ 
+=======
 # define TRUE 1
 # define FALSE 0
 # define FLOOR_COLOR 0xFF0000
@@ -26,6 +32,7 @@
 # define KEY_S 115
 # define KEY_D 100
 # define KEY_M 109
+# define KEY_P 112
 # define KEY_LEFT 65361
 # define KEY_RIGHT 65363
 # define KEY_ESC 65307
@@ -129,49 +136,51 @@ typedef struct s_map
 
 typedef struct s_data
 {
-	float		wall_x;
-	float		current_dist;
-	float		weight;
-	float		current_ceiling_x;
-	float		current_ceiling_y;
-	float		current_floor_x;
-	float		current_floor_y;
-	void		*mlx_ptr;
-	void		*win_ptr;
-	void		*img;
-	char		*addr;
-	char		*n_addr;
-	char		*s_addr;
-	char		*w_addr;
-	char		*e_addr;
-	char		*floor_addr;
-	char		*ceiling_addr;
-	char		*weapon_addr;
-	char		*shot_addr;
-	char		*crosshair_addr;
-	char		*life_addr;
-	char		*door_addr;
-	char		*door1_addr;
-	void		*door1_texture;
-	void		*door_texture;
-	void		*shot_texture;
-	void		*life_texture;
-	void		*crosshair_texture;
-	void		*weapon_texture;
-	void		*n_texture;
-	void		*s_texture;
-	void		*w_texture;
-	void		*e_texture;
-	void		*f_texture;
-	void		*c_texture;
-	int			texture_width;
-	int			texture_height;
-	int			texture_x;
-	int			texture_y;
-	int			bits_per_pixel;
-	int			line_length;
-	int			endian;
-	int			color;
+	float	wall_x;
+	float	current_dist;
+	float	weight;
+	float	current_ceiling_x;
+	float	current_ceiling_y;
+	float	current_floor_x;
+	float	current_floor_y;
+	void	*mlx_ptr;
+	void	*win_ptr;
+	void	*img;
+	char	*addr;
+	char	*n_addr;
+	char	*s_addr;
+	char	*w_addr;
+	char	*e_addr;
+	char	*floor_addr;
+	char	*ceiling_addr;
+	char	*weapon_addr;
+	char	*shot_addr;
+	char	*crosshair_addr;
+	char	*life_addr;
+	char	*door_addr;
+	char	*door1_addr;
+	void	*door1_texture;
+	char	*enem_addr;
+	void	*enem_texture;
+	void	*door_texture;
+	void	*shot_texture;
+	void	*life_texture;
+	void	*crosshair_texture;
+	void	*weapon_texture;
+	void	*n_texture;
+	void	*s_texture;
+	void	*w_texture;
+	void	*e_texture;
+	void	*f_texture;
+	void	*c_texture;
+	int		texture_width;
+	int		texture_height;
+	int		texture_x;
+	int		texture_y;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+	int		color;
 }				t_data;
 
 typedef struct s_line
@@ -189,16 +198,41 @@ typedef struct s_line
 	int			end_y;
 }	t_line;
 
+typedef struct s_sprite
+{
+	float	sprite_x;
+	float	sprite_y;
+	float	sprite_screen_x;
+	float	sprite_screen_y;
+	float	distance;
+	float	angle_to_sprite;
+	float	relative_x;
+	float	relative_y;
+	int		x;
+	int		y;
+	int		active;
+	int		*texture;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+	int		texture_width;
+	int		texture_height;
+	int		screen_x;
+	int		screen_y;
+}	t_sprite;
+
 typedef struct s_game
 {
 	t_player	player;
 	t_map		map;
 	t_data		data;
+	t_sprite	sprite;
 	t_data		texture;
 	t_line		line;
 	t_ray		rays[90];
+	int			focus;
 }	t_game;
-
 //-----------------------PARSING-----------------------------------------------
 int			parse_file(t_game *game, char *argv);
 int			parse_color(t_game *game, char *line);
@@ -217,7 +251,8 @@ int			invalid_texture(t_game *game);
 int			check_doors(t_game *game);
 
 //-----------------------INIT--------------------------------------------------
-int			init_game(t_game *game);
+void		init_game(t_game *game);
+void		init_map_size(t_game *game);
 void		init_map(t_game *game);
 int			init_window(t_game *game);
 void		init_parsing_data(t_game *game);
@@ -252,6 +287,7 @@ int			mouse_move(int x, int y, t_game *game);
 void		minimap(t_game *game);
 void		draw_ray(t_game *game, int rayIndex, int lenght);
 void		draw_player(t_game *game, int width, int height, int color);
+void		draw_sprite(t_game *game);
 
 //-----------------------CASTER------------------------------------------------
 float		distance(float x1, float y1, float x2, float y2);
@@ -265,6 +301,8 @@ void		reset_horizontal(t_game *game);
 void		cast_vertical(t_game *game);
 void		vertical_direction(t_game *game);
 void		reset_vertical(t_game *game);
+void		set_horizontal(t_game *game);
+void		set_vertical(t_game *game);
 
 //-----------------------UTILS-------------------------------------------------
 
