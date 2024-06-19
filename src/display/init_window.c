@@ -6,13 +6,13 @@
 /*   By: akambou <akambou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 22:13:19 by akambou           #+#    #+#             */
-/*   Updated: 2024/06/18 00:54:00 by akambou          ###   ########.fr       */
+/*   Updated: 2024/06/19 08:17:59 by akambou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
 
-void	init_map(t_game *game)
+void	init_map_size(t_game *game)
 {
 	game->map.height = (game->map.mapy * game->map.maps);
 	game->map.width = (game->map.mapx * game->map.maps);
@@ -48,7 +48,7 @@ void	init_floor_ceiling_and_doors(t_game *game)
 	&game->data.bits_per_pixel, &game->data.line_length, \
 	&game->data.endian);
 	game->data.enem_texture = mlx_xpm_file_to_image(game->data.mlx_ptr, \
-	"./textures/barrel.xpm", &game->data.texture_width, \
+	"./textures/door.xpm", &game->data.texture_width, \
 	&game->data.texture_height);
 	game->data.enem_addr = mlx_get_data_addr(game->data.enem_texture, \
 	&game->data.bits_per_pixel, &game->data.line_length, \
@@ -84,13 +84,15 @@ void	init_textures(t_game *game)
 }
 
 void	init_window(t_game *game)
-{
+{	
+	game->map.win_w = 1200;
+	game->map.win_h = 800;
 	game->data.mlx_ptr = mlx_init();
 	init_textures(game);
 	game->data.win_ptr = mlx_new_window(game->data.mlx_ptr, \
-	960, 640, "Game");
+	game->map.win_w, game->map.win_h, "Game");
 	game->data.img = mlx_new_image(game->data.mlx_ptr, \
-	960, 640);
+	game->map.win_w, game->map.win_h);
 	game->data.addr = mlx_get_data_addr(game->data.img, \
 	&game->data.bits_per_pixel, &game->data.line_length, &game->data.endian);
 
@@ -103,10 +105,12 @@ void	init_game(t_game *game)
 
 	x = 0;
 	y = 0;
-	init_map(game);
+	game->focus = 1;
+	init_map_size(game);
 	init_window(game);
 	spawn_player(game);
 	game->player.angle -= (M_PI / 6);
+	game->sprite.active = 1;
 	game->map.height = game->map.mapy;
 	game->map.width = game->map.mapx;
 	game->map.win_h = (game->map.mapy * game->map.maps);

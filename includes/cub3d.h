@@ -6,7 +6,7 @@
 /*   By: akambou <akambou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 23:00:41 by akambou           #+#    #+#             */
-/*   Updated: 2024/06/18 01:38:59 by akambou          ###   ########.fr       */
+/*   Updated: 2024/06/19 09:13:14 by akambou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # define KEY_S 115
 # define KEY_D 100
 # define KEY_M 109
+# define KEY_P 112
 # define KEY_LEFT 65361
 # define KEY_RIGHT 65363
 # define KEY_ESC 65307
@@ -54,75 +55,77 @@
 
 typedef struct s_player
 {
-	double	x;
-	double	y;
-	double	angle;
-	double	delta_x;
-	double	delta_y;
-	float	nextx;
-	float	nexty;
-	float	speed;
-	float	mouse_x;
+	double		x;
+	double		y;
+	double		angle;
+	double		delta_x;
+	double		delta_y;
+	float		nextx;
+	float		nexty;
+	float		speed;
+	float		mouse_x;
 }	t_player;
 
 typedef struct s_ray
 {
-	float	angle;
-	float	ray_x;
-	float	ray_y;
-	float	x_offset;
-	float	y_offset;
-	float	horizontal_x;
-	float	horizontal_y;
-	float	vertical_x;
-	float	vertical_y;
-	float	line_height;
-	float	line_offset;
-	int		ray_width;
-	int		ray;
-	int		mx;
-	int		my;
-	int		mp;
-	int		deapht_of_field;
-	int		h_length;
-	int		v_length;
-	int		total_length;
-	int		win_i;
-	int		win_j;
+	float		angle;
+	float		ray_x;
+	float		ray_y;
+	float		x_offset;
+	float		y_offset;
+	float		horizontal_x;
+	float		horizontal_y;
+	float		vertical_x;
+	float		vertical_y;
+	float		line_height;
+	float		line_offset;
+	int			ray_width;
+	int			ray;
+	int			mx;
+	int			my;
+	int			mp;
+	int			deapht_of_field;
+	int			h_length;
+	int			v_length;
+	int			total_length;
+	int			win_i;
+	int			win_j;
 }	t_ray;
 
 typedef struct s_color
 {
-	int		r;
-	int		g;
-	int		b;
-	int		color;
+	int			r;
+	int			g;
+	int			b;
+	int			color;
+	char		*texture;
 }	t_color;
 
 typedef struct s_map
 {
-	t_color	floor;
-	t_color	ceiling;
-	char	*temp_map;
-	char	*north_texture;
-	char	*south_texture;
-	char	*west_texture;
-	char	*east_texture;
-	int		*map;
-	int		win_w;
-	int		win_h;
-	int		width;
-	int		height;
-	int		mapx;
-	int		mapy;
-	int		maps;
-	int		cellsize;
-	int		x;
-	int		y;
-	int		i;
-	int		j;
-	int		cell;
-	int		color;
+	t_color		floor;
+	t_color		ceiling;
+	char		*temp_map;
+	char		*north_texture;
+	char		*south_texture;
+	char		*west_texture;
+	char		*east_texture;
+	int			*map;
+	int			win_w;
+	int			win_h;
+	int			width;
+	int			height;
+	int			mapx;
+	int			mapy;
+	int			maps;
+	int			cellsize;
+	int			x;
+	int			y;
+	int			i;
+	int			j;
+	int			cell;
+	int			color;
+	int			player;
 }	t_map;
 
 typedef struct s_data
@@ -191,13 +194,18 @@ typedef struct s_line
 
 typedef struct s_sprite
 {
-	int type;
-	int x;
-	int y;
-	int z;
-	int *texture;
-	int *rotated_texture;
-	int visible;
+	float	sprite_x;
+	float	sprite_y;
+	float	sprite_screen_x;
+	float	sprite_screen_y;
+	float	distance;
+	float	angle_to_sprite;
+	float	relative_x;
+	float	relative_y;
+	int		x;
+	int		y;
+	int		active;
+	int		*texture;
 	char	*addr;
 	int		bits_per_pixel;
 	int		line_length;
@@ -206,7 +214,7 @@ typedef struct s_sprite
 	int		texture_height;
 	int		screen_x;
 	int		screen_y;
-} t_sprite;
+}	t_sprite;
 
 typedef struct s_game
 {
@@ -217,14 +225,15 @@ typedef struct s_game
 	t_data		texture;
 	t_line		line;
 	t_ray		rays[90];
+	int			focus;
 }	t_game;
-
 //-----------------------PARSING-----------------------------------------------
 int			parse_file(t_game *game, char *argv);
 int			parse_color(t_game *game, char *line);
 void		parse_texture_and_colors(t_game *game, char *line);
 int			parse_map(t_game *game, char *line);
 int			rgb_to_int(t_color color);
+char		*get_path(char *str);
 
 //-----------------------ERROR-------------------------------------------------
 int			cub_error(char *str, int error);
@@ -232,9 +241,12 @@ int			cub_error(char *str, int error);
 //-----------------------CHECK--------------------------------------------------
 int			textures_and_colors_get(t_game *game);
 int			mapping(t_game *game);
+int			invalid_texture(t_game *game);
+int			check_doors(t_game *game);
 
 //-----------------------INIT--------------------------------------------------
 void		init_game(t_game *game);
+void		init_map_size(t_game *game);
 void		init_map(t_game *game);
 void		init_window(t_game *game);
 void		init_parsing_data(t_game *game);
@@ -283,6 +295,8 @@ void		reset_horizontal(t_game *game);
 void		cast_vertical(t_game *game);
 void		vertical_direction(t_game *game);
 void		reset_vertical(t_game *game);
+void		set_horizontal(t_game *game);
+void		set_vertical(t_game *game);
 
 //-----------------------UTILS-------------------------------------------------
 

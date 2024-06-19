@@ -6,7 +6,7 @@
 /*   By: akambou <akambou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 03:07:46 by kmb               #+#    #+#             */
-/*   Updated: 2024/06/17 06:48:01 by akambou          ###   ########.fr       */
+/*   Updated: 2024/06/19 09:18:14 by akambou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,13 @@ int	main(int argc, char **argv)
 	if (parse_file(&game, argv[1]))
 		return (FAILURE);
 	if (mapping(&game))
-		return (cub_error("Error\nInvalid map\n", FAILURE));
+		return (FAILURE);
 	init_game(&game);
 	mlx_hook(game.data.win_ptr, MotionNotify, \
 	PointerMotionMask, &mouse_move, &game);
 	mlx_mouse_hook(game.data.win_ptr, shoot, &game);
 	mlx_hook(game.data.win_ptr, 2, 1, key_press, &game);
-	mlx_mouse_hide(game.data.mlx_ptr, game.data.win_ptr);
 	mlx_loop_hook(game.data.mlx_ptr, loop, &game);
 	mlx_loop(game.data.mlx_ptr);
+	return (SUCCESS);
 }
