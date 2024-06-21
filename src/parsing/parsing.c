@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akambou <akambou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 09:18:04 by gprada-t          #+#    #+#             */
-/*   Updated: 2024/06/21 06:48:03 by akambou          ###   ########.fr       */
+/*   Updated: 2024/06/21 09:55:40 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,7 @@ int	parse_file(t_game *game, char *argv)
 		line = get_next_line(fd);
 	}
 	free(line);
+	printf("color -> r: %d, g: %d, b: %d\n", game->map.ceiling.r, game->map.ceiling.g, game->map.ceiling.b);
 	line = get_next_line(fd);
 	while (line)
 	{

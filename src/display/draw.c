@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akambou <akambou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 17:09:49 by gprada-t          #+#    #+#             */
-/*   Updated: 2024/06/21 06:51:42 by akambou          ###   ########.fr       */
+/*   Updated: 2024/06/21 09:37:19 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	draw_ceiling(t_game *game)
 			else
 				my_mlx_pixel_put(&game->data, game->rays->ray * \
 				game->rays->ray_width + game->rays->win_j, \
-				game->rays->win_i, game->map.ceiling.color);	
+				game->rays->win_i, game->map.ceiling.color);
 			game->rays->win_j++;
 		}
 		game->rays->win_i++;
