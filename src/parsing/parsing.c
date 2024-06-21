@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
+/*   By: akambou <akambou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 09:18:04 by gprada-t          #+#    #+#             */
-/*   Updated: 2024/06/19 17:01:52 by gprada-t         ###   ########.fr       */
+/*   Updated: 2024/06/21 06:48:03 by akambou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,15 @@ void	parse_texture_and_colors(t_game *game, char *line)
 		game->map.east_texture = get_path(new_line + 2);
 	else if (ft_strncmp(new_line, "WE", 2) == 0)
 		game->map.west_texture = get_path(new_line + 2);
+	else if (ft_strncmp(new_line, "FT", 2) == 0)
+		game->map.floor_texture = get_path(new_line + 2);
+	else if (ft_strncmp(new_line, "CT", 2) == 0)
+		game->map.ceiling_texture = get_path(new_line + 2);
 	else if (ft_strncmp(new_line, "F", 1) == 0)
 		parse_color(game, new_line);
 	else if (ft_strncmp(new_line, "C", 1) == 0)
 		parse_color(game, new_line);
+	printf("line: %s\n", new_line);
 	free(new_line);
 }
 
@@ -109,6 +114,7 @@ int	parse_file(t_game *game, char *argv)
 {
 	int		fd;
 	char	*line;
+	char	*temp;
 
 	fd = open(argv, O_RDONLY);
 	if (fd < 0)
@@ -117,17 +123,29 @@ int	parse_file(t_game *game, char *argv)
 	line = get_next_line(fd);
 	while (line && !textures_and_colors_get(game))
 	{
-		while (ft_isspace(line[0]))
-			line++;
-		parse_texture_and_colors(game, line);
+		temp = line;
+		while (ft_isspace(*temp))
+		{
+			temp++;
+			if (!*temp)
+				break ;
+		}
+		parse_texture_and_colors(game, temp);
+		free(line);
 		line = get_next_line(fd);
 	}
+	free(line);
+	line = get_next_line(fd);
 	while (line)
 	{
-		line = get_next_line(fd);
 		if (!line)
+		{
+			free(line);
 			break ;
+		}
 		parse_map(game, line);
+		free(line);
+		line = get_next_line(fd);
 	}
 	close(fd);
 	return (SUCCESS);

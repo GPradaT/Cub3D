@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
+/*   By: akambou <akambou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 17:09:49 by gprada-t          #+#    #+#             */
-/*   Updated: 2024/06/19 17:10:53 by gprada-t         ###   ########.fr       */
+/*   Updated: 2024/06/21 06:51:42 by akambou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,18 @@ void	draw_ceiling(t_game *game)
 		while (game->rays->win_j < game->rays->ray_width)
 		{
 			texture_pos_cf(game);
-			game->data.color = get_texture_color1((int *) \
-			game->data.ceiling_addr, game->data.texture_x / 2, \
-			game->data.texture_y / 4, game);
-			my_mlx_pixel_put(&game->data, game->rays->ray * \
-			game->rays->ray_width + game->rays->win_j, \
-			game->rays->win_i, game->data.color);
+			if (game->map.ceiling_texture)
+				game->data.color = get_texture_color1((int *) \
+				game->data.ceiling_addr, game->data.texture_x / 2, \
+				game->data.texture_y / 4, game);
+			if (game->map.ceiling_texture)
+				my_mlx_pixel_put(&game->data, game->rays->ray * \
+				game->rays->ray_width + game->rays->win_j, \
+				game->rays->win_i, game->data.color);
+			else
+				my_mlx_pixel_put(&game->data, game->rays->ray * \
+				game->rays->ray_width + game->rays->win_j, \
+				game->rays->win_i, game->map.ceiling.color);	
 			game->rays->win_j++;
 		}
 		game->rays->win_i++;
@@ -41,11 +47,17 @@ void	draw_floor(t_game *game)
 		while (game->rays->win_j < game->rays->ray_width)
 		{
 			texture_pos_cf(game);
-			game->data.color = get_texture_color1((int *)game->data.floor_addr, \
-			game->data.texture_x / 2, game->data.texture_y / 4, game);
-			my_mlx_pixel_put(&game->data, game->rays->ray * \
-			game->rays->ray_width + game->rays->win_j, \
-			game->rays->win_i, game->data.color);
+			if (game->map.floor_texture)
+				game->data.color = get_texture_color1((int *)game->data.floor_addr, \
+				game->data.texture_x / 2, game->data.texture_y / 4, game);
+			if (game->map.floor_texture)
+				my_mlx_pixel_put(&game->data, game->rays->ray * \
+				game->rays->ray_width + game->rays->win_j, \
+				game->rays->win_i, game->data.color);
+			else
+				my_mlx_pixel_put(&game->data, game->rays->ray * \
+				game->rays->ray_width + game->rays->win_j, \
+				game->rays->win_i, game->map.floor.color);
 			game->rays->win_j++;
 		}
 		game->rays->win_i++;
