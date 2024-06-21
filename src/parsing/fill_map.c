@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
+/*   By: akambou <akambou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 16:40:15 by gprada-t          #+#    #+#             */
-/*   Updated: 2024/06/19 16:40:28 by gprada-t         ###   ########.fr       */
+/*   Updated: 2024/06/19 21:07:18 by akambou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ void	handle_char(char c, int *array, int *index, int x)
 		fill_tabs(array, index);
 	else if (c == 'D')
 		array[(*index)++] = 7;
+	else if (c == 'O')
+		array[(*index)++] = 8;
 }
 
 void	fill_tabs(int *array, int *index)

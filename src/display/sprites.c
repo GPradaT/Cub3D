@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sprites.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
+/*   By: akambou <akambou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 17:08:19 by gprada-t          #+#    #+#             */
-/*   Updated: 2024/06/19 17:13:01 by gprada-t         ###   ########.fr       */
+/*   Updated: 2024/06/21 06:05:01 by akambou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ void	calculate_sprite_position(t_game *game)
 	game->sprite.distance = sqrt(game->sprite.relative_x * \
 	game->sprite.relative_x + game->sprite.relative_y * \
 	game->sprite.relative_y);
-	printf("distance: %f\n", game->sprite.distance);
 	game->sprite.angle_to_sprite = atan2(game->sprite.relative_y, \
 	game->sprite.relative_x) - game->player.angle;
 	if (game->sprite.angle_to_sprite < -M_PI)
