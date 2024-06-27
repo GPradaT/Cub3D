@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 09:18:04 by gprada-t          #+#    #+#             */
-/*   Updated: 2024/06/21 09:55:40 by gprada-t         ###   ########.fr       */
+/*   Updated: 2024/06/27 09:51:03 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,14 @@ char	*get_path(char *str)
 	return (path);
 }
 
-void	parse_texture_and_colors(t_game *game, char *line)
+int	parse_texture_and_colors(t_game *game, char *line)
 {
 	char	*new_line;
 	int		i;
 
 	i = 0;
 	if (!line)
-		return ((void)cub_error("Error\nInvalid texture\n", FAILURE));
+		return (cub_error("Error\nInvalid texture\n", FAILURE));
 	while (ft_isspace(line[i]) == TRUE)
 		i++;
 	new_line = ft_strdup(line + i);
@@ -50,16 +50,33 @@ void	parse_texture_and_colors(t_game *game, char *line)
 		game->map.east_texture = get_path(new_line + 2);
 	else if (ft_strncmp(new_line, "WE", 2) == 0)
 		game->map.west_texture = get_path(new_line + 2);
-	else if (ft_strncmp(new_line, "FT", 2) == 0)
-		game->map.floor_texture = get_path(new_line + 2);
-	else if (ft_strncmp(new_line, "CT", 2) == 0)
-		game->map.ceiling_texture = get_path(new_line + 2);
 	else if (ft_strncmp(new_line, "F", 1) == 0)
-		parse_color(game, new_line);
+	{
+		game->map.floor.texture = get_path(new_line + 2);
+		if (!game->map.floor.texture)
+			return (cub_error("Error\nInvalid texture\n", FAILURE));
+		if (game->map.floor.texture[0] == '.' && game->map.floor.texture[1] == '/')
+			game->map.floor_texture = game->map.floor.texture;
+		else
+			free(game->map.floor.texture);
+		if (parse_color(game, new_line) == -3)
+			return cub_error("Error\nInvalid color\n", FAILURE);
+	}
 	else if (ft_strncmp(new_line, "C", 1) == 0)
-		parse_color(game, new_line);
+	{
+		game->map.ceiling.texture = get_path(new_line + 2);
+		if (!game->map.ceiling.texture)
+			return (cub_error("Error\nInvalid texture\n", FAILURE));
+		if (game->map.ceiling.texture[0] == '.' && game->map.ceiling.texture[1] == '/')
+			game->map.ceiling_texture = game->map.ceiling.texture;
+		else
+			free(game->map.ceiling.texture);
+		if (parse_color(game, new_line) == -3)
+			return FAILURE;
+	}
 	printf("line: %s\n", new_line);
 	free(new_line);
+	return (SUCCESS);
 }
 
 void	chose_direction(t_game *game, char c)
@@ -101,12 +118,19 @@ int	parse_map(t_game *game, char *line)
 			game->map.player += 1;
 			chose_direction(game, line[i]);
 			if (game->map.player > 1)
-				return (cub_error("Error\n\
+			{
+				printf("i = %d\n", i);
+				printf("player = %d\n", game->map.player);
+				printf("line[i] = %c\n", line[i]);
+				printf("line = %s\n", line);
+				return (printf("i = %d\n", i), cub_error("Error\n\
 				Only 1 player videogame sorry\n", FAILURE));
+			}
 		}
 		i++;
 	}
 	game->map.temp_map = ft_strjoin(game->map.temp_map, line);
+
 	return (SUCCESS);
 }
 
@@ -116,37 +140,52 @@ int	parse_file(t_game *game, char *argv)
 	char	*line;
 	char	*temp;
 
+	init_parsing_data(game);
 	fd = open(argv, O_RDONLY);
 	if (fd < 0)
-		return (cub_error("Error: Invalid FILE", 2));
-	init_parsing_data(game);
+		return (cub_error("Error: Invalid FILE\n", 2));
 	line = get_next_line(fd);
+	if (!line)
+	{
+		close(fd);
+		return (cub_error("Error: Empty file\n", 2));
+	}
+
 	while (line && !textures_and_colors_get(game))
 	{
 		temp = line;
 		while (ft_isspace(*temp))
-		{
 			temp++;
-			if (!*temp)
-				break ;
+		if (!*temp)
+		{
+			free(line);
+			line = get_next_line(fd);
+			continue ;
 		}
-		parse_texture_and_colors(game, temp);
+		if (parse_texture_and_colors(game, temp))
+		{
+			free(line);
+			close(fd);
+			return (FAILURE);
+		}
 		free(line);
 		line = get_next_line(fd);
 	}
 	free(line);
-	printf("color -> r: %d, g: %d, b: %d\n", game->map.ceiling.r, game->map.ceiling.g, game->map.ceiling.b);
-	line = get_next_line(fd);
-	while (line)
+	if (!have_to_paint(&game->map))
 	{
-		if (!line)
+		close(fd);
+		return (cub_error("Error\nInvalid color\n", FAILURE));
+	}
+	while ((line = get_next_line(fd)) != NULL)
+	{
+		if (parse_map(game, line) != SUCCESS)
 		{
 			free(line);
-			break ;
+			close(fd);
+			return (FAILURE);
 		}
-		parse_map(game, line);
-		free(line);
-		line = get_next_line(fd);
+		free (line);
 	}
 	close(fd);
 	return (SUCCESS);

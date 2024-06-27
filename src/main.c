@@ -6,16 +6,28 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 03:07:46 by kmb               #+#    #+#             */
-/*   Updated: 2024/06/19 09:18:14 by akambou          ###   ########.fr       */
+/*   Updated: 2024/06/27 09:43:26 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
 
+int	check_before_init(t_game *game)
+{
+
+	if (game->map.ceiling_texture && game->map.floor_texture)
+		return SUCCESS;
+	else if (!game->map.ceiling_texture && game->map.ceiling.color > -1)
+		return SUCCESS;
+	else if (!game->map.floor_texture && game->map.floor.color > -1)
+		return SUCCESS;
+	else
+		return (cub_error("Error\nInvalid texture or color\n", FAILURE));
+}
+
 int	main(int argc, char **argv)
 {
 	t_game	game;
-	int		fd;
 
 	if (argc != 2)
 	{
@@ -28,6 +40,13 @@ int	main(int argc, char **argv)
 		return (FAILURE);
 	}
 	if (parse_file(&game, argv[1]))
+	{
+		return (FAILURE);
+	}
+	printf("%d\n", parse_file(&game, argv[1]));
+	if (!game.map.temp_map)
+		return (FAILURE);
+	if (check_before_init(&game))
 		return (FAILURE);
 	if (mapping(&game))
 		return (FAILURE);

@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 15:47:08 by gprada-t          #+#    #+#             */
-/*   Updated: 2024/06/19 17:01:15 by gprada-t         ###   ########.fr       */
+/*   Updated: 2024/06/25 20:59:23 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,15 @@ void	clean_map(t_game *game)
 
 int	mapping(t_game *game)
 {
+	if (!(*game->map.temp_map))
+		return (cub_error("Error\nInvalid map\n", FAILURE));
 	while (*game->map.temp_map == '\n')
 		game->map.temp_map++;
-	if (!game->map.temp_map)
-		return (cub_error("Error\nInvalid map\n", FAILURE));
 	setting_map_x_map_y(game->map.temp_map, game);
 	game->map.map = str_to_int_array(game->map.temp_map, \
 	game->map.mapx, game->map.mapy);
 	printf("Mapa convertido a array de enteros:\n");
-	print_int_array(game->map.map, game->map.mapx, game->map.mapy);
+	//print_int_array(game->map.map, game->map.mapx, game->map.mapy);
 	if (game->map.player == 0)
 		return (cub_error("Error\nNo player\n", FAILURE));
 	if (check_closed_map(game))

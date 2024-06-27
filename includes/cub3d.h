@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akambou <akambou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 23:00:41 by akambou           #+#    #+#             */
-/*   Updated: 2024/06/21 06:14:12 by akambou          ###   ########.fr       */
+/*   Updated: 2024/06/25 10:07:40 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -240,6 +240,7 @@ int			invalid_texture(t_game *game);
 int			textures_and_colors_get(t_game *game);
 int			is_north(t_game *game);
 int			is_west(t_game *game);
+int			have_to_paint(t_map *map);
 
 //-------------------COLOR_TEXT_C+F---------------------------------------------
 int			rgb_to_int(t_color color);
@@ -257,7 +258,7 @@ void		fill_spaces(int *array, int *index, int x);
 //-----------------------PARSING-----------------------------------------------
 int			parse_file(t_game *game, char *argv);
 int			parse_color(t_game *game, char *line);
-void		parse_texture_and_colors(t_game *game, char *line);
+int			parse_texture_and_colors(t_game *game, char *line);
 int			parse_map(t_game *game, char *line);
 int			rgb_to_int(t_color color);
 char		*get_path(char *str);

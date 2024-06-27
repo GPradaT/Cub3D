@@ -5,7 +5,6 @@ CFLAGS	= -O3 -fsanitize=address -MMD -MP
 RM		= rm -rf
 
 MLX_PATH	= lib/minilibx/
-#MLX_PATH	= lib/minilibx_mac/
 MLX_NAME	= libmlx.a
 MLX			= $(MLX_PATH)$(MLX_NAME)
 LIBFT_PATH	= lib/libft/
@@ -27,7 +26,9 @@ F_RAYCAST	= $(addprefix src/raycast/, $(RAYCAST))
 F_UTILS		= $(addprefix src/utils/, $(UTILS))
 F_MAIN		= $(addprefix src/, $(MAIN))
 
-SRCS		= $(addsuffix .c, $(F_DISPLAY) $(F_GAMEPLAY) $(F_PARSING) $(F_RAYCAST) $(F_UTILS) $(F_MAIN))
+FILES		= $(F_DISPLAY) $(F_GAMEPLAY) $(F_PARSING) $(F_RAYCAST) $(F_UTILS) $(F_MAIN)
+
+SRCS		= $(addsuffix .c, $(FILES))
 
 OBJ_PATH	= obj/
 OBJS		= $(addprefix $(OBJ_PATH), $(notdir $(SRCS:.c=.o)))
