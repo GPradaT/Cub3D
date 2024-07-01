@@ -14,7 +14,8 @@ INC			=	-I ./includes/ -I ./lib/minilibx/ -I ./lib/libft/
 
 DISPLAY		= draw init_window sprites texture window
 GAMEPLAY	= hud minimap player
-PARSING		= check_closed_map check color_text fill_map init parsing set_map set_x_and_y
+PARSING		= check_closed_map check color_text fill_map init parsing set_map set_x_and_y \
+				parse_text_and_colors
 RAYCAST		= caster horizontal vertical
 UTILS		= utils utilsplayer
 MAIN		= main
