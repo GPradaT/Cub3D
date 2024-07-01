@@ -6,7 +6,7 @@
 /*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 03:07:46 by kmb               #+#    #+#             */
-/*   Updated: 2024/06/27 09:43:26 by gprada-t         ###   ########.fr       */
+/*   Updated: 2024/07/01 13:31:39 by gprada-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,9 @@ int	main(int argc, char **argv)
 	t_game	game;
 
 	if (argc != 2)
-	{
-		ft_putstr_fd("Error\nInvalid number of arguments\n", 2);
-		return (FAILURE);
-	}
+		return (cub_error("Error\nInvalid number of arguments\n", FAILURE));
 	else if (ft_strncmp(argv[1] + ft_strlen(argv[1]) - 4, ".cub", 4))
-	{
-		ft_putstr_fd("Error\nInvalid file extension\n", 2);
-		return (FAILURE);
-	}
+		cub_error("Error\nInvalid file extension\n", FAILURE);
 	parser(&game, argv);
 	init_game(&game);
 	mlx_hook(game.data.win_ptr, MotionNotify, \
