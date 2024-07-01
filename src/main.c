@@ -14,15 +14,26 @@
 
 int	check_before_init(t_game *game)
 {
-
 	if (game->map.ceiling_texture && game->map.floor_texture)
-		return SUCCESS;
+		return (SUCCESS);
 	else if (!game->map.ceiling_texture && game->map.ceiling.color > -1)
-		return SUCCESS;
+		return (SUCCESS);
 	else if (!game->map.floor_texture && game->map.floor.color > -1)
-		return SUCCESS;
+		return (SUCCESS);
 	else
 		return (cub_error("Error\nInvalid texture or color\n", FAILURE));
+}
+
+void	parser(t_game *game, char **argv)
+{
+	if (parse_file(game, argv[1]))
+		return (FAILURE);
+	if (!game->map.temp_map)
+		return (FAILURE);
+	if (check_before_init(game))
+		return (FAILURE);
+	if (mapping(game))
+		return (FAILURE);
 }
 
 int	main(int argc, char **argv)
@@ -39,17 +50,7 @@ int	main(int argc, char **argv)
 		ft_putstr_fd("Error\nInvalid file extension\n", 2);
 		return (FAILURE);
 	}
-	if (parse_file(&game, argv[1]))
-	{
-		return (FAILURE);
-	}
-	printf("%d\n", parse_file(&game, argv[1]));
-	if (!game.map.temp_map)
-		return (FAILURE);
-	if (check_before_init(&game))
-		return (FAILURE);
-	if (mapping(&game))
-		return (FAILURE);
+	parser(&game, argv);
 	init_game(&game);
 	mlx_hook(game.data.win_ptr, MotionNotify, \
 	PointerMotionMask, &mouse_move, &game);

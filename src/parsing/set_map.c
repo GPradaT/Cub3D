@@ -49,7 +49,6 @@ int	mapping(t_game *game)
 	game->map.map = str_to_int_array(game->map.temp_map, \
 	game->map.mapx, game->map.mapy);
 	printf("Mapa convertido a array de enteros:\n");
-	//print_int_array(game->map.map, game->map.mapx, game->map.mapy);
 	if (game->map.player == 0)
 		return (cub_error("Error\nNo player\n", FAILURE));
 	if (check_closed_map(game))
