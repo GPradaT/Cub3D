@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_text_and_colors.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
+/*   By: akambou <akambou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 13:21:33 by gprada-t          #+#    #+#             */
-/*   Updated: 2024/07/01 13:24:48 by gprada-t         ###   ########.fr       */
+/*   Updated: 2024/07/02 04:06:14 by akambou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ int	handle_texture_paths(t_game *game, char *new_line)
 	else if (ft_strncmp(new_line, "WE", 2) == 0)
 		game->map.west_texture = get_path(new_line + 2);
 	else if (ft_strncmp(new_line, "F", 1) == 0)
-		return handle_floor_texture(game, new_line);
+		return (handle_floor_texture(game, new_line));
 	else if (ft_strncmp(new_line, "C", 1) == 0)
-		return handle_ceiling_texture(game, new_line);
+		return (handle_ceiling_texture(game, new_line));
 	return (SUCCESS);
 }
 

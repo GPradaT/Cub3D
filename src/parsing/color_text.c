@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   color_text.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
+/*   By: akambou <akambou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 18:03:29 by gprada-t          #+#    #+#             */
-/*   Updated: 2024/06/26 08:36:19 by gprada-t         ###   ########.fr       */
+/*   Updated: 2024/07/02 04:22:05 by akambou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,11 @@ int	get_color(char *line)
 	i = 0;
 	while (line[i] != ',' && line[i] != '\0')
 		i++;
-	printf("line + i: %s\n", line + i);
 	color = malloc(sizeof(char) * i + 1);
 	if (!color)
 		return (-2);
 	ft_strlcpy(color, line, i + 1);
-	printf("color: %s\n", color);
 	i = ft_atoi(color);
-	printf("i: %d\n", i);
 	free(color);
 	return (i);
 }

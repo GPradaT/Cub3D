@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
+/*   By: akambou <akambou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 23:00:41 by akambou           #+#    #+#             */
-/*   Updated: 2024/07/01 13:24:38 by gprada-t         ###   ########.fr       */
+/*   Updated: 2024/07/02 04:18:59 by akambou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -264,6 +264,8 @@ int			parse_color(t_game *game, char *line);
 int			parse_texture_and_colors(t_game *game, char *line);
 int			parse_map(t_game *game, char *line);
 int			rgb_to_int(t_color color);
+int			get_line(t_game *game, char *line, char *temp, int fd);
+int			check_line(t_game *game, char *line, char *temp, int fd);
 char		*get_path(char *str);
 
 //-----------------------ERROR-------------------------------------------------

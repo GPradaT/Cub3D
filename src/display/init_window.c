@@ -6,7 +6,7 @@
 /*   By: akambou <akambou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 22:13:19 by akambou           #+#    #+#             */
-/*   Updated: 2024/06/21 06:54:07 by akambou          ###   ########.fr       */
+/*   Updated: 2024/07/02 04:23:36 by akambou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,6 @@ void	init_floor_ceiling_and_doors(t_game *game)
 		&game->data.bits_per_pixel, &game->data.line_length, \
 		&game->data.endian);
 	}
-	printf ("ceiling color: %d\n", game->map.ceiling.color);
-	printf ("floor color: %d\n", game->map.floor.color);
 	init_doors(game);
 }
 

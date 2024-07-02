@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
+/*   By: akambou <akambou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 03:07:46 by kmb               #+#    #+#             */
-/*   Updated: 2024/07/01 13:31:39 by gprada-t         ###   ########.fr       */
+/*   Updated: 2024/07/02 04:03:11 by akambou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	check_before_init(t_game *game)
 		return (cub_error("Error\nInvalid texture or color\n", FAILURE));
 }
 
-void	parser(t_game *game, char **argv)
+int	parser(t_game *game, char **argv)
 {
 	if (parse_file(game, argv[1]))
 		return (FAILURE);
