@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprada-t <gprada-t@student.42barcelona.    +#+  +:+       +#+        */
+/*   By: akambou <akambou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 23:00:41 by akambou           #+#    #+#             */
-/*   Updated: 2024/06/25 10:07:40 by gprada-t         ###   ########.fr       */
+/*   Updated: 2024/07/02 04:18:59 by akambou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -247,6 +247,9 @@ int			rgb_to_int(t_color color);
 int			get_color(char *line);
 int			get_rgb(t_color *color, char *line);
 int			parse_color(t_game *game, char *line);
+int			handle_floor_texture(t_game *game, char *new_line);
+int			handle_ceiling_texture(t_game *game, char *new_line);
+int			handle_texture_paths(t_game *game, char *new_line);
 
 //-----------------------FILL_MAP-----------------------------------------------
 void		setting_map_x_map_y(char *str_map, t_game *game);
@@ -261,6 +264,8 @@ int			parse_color(t_game *game, char *line);
 int			parse_texture_and_colors(t_game *game, char *line);
 int			parse_map(t_game *game, char *line);
 int			rgb_to_int(t_color color);
+int			get_line(t_game *game, char *line, char *temp, int fd);
+int			check_line(t_game *game, char *line, char *temp, int fd);
 char		*get_path(char *str);
 
 //-----------------------ERROR-------------------------------------------------
