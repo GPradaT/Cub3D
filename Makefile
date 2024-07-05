@@ -10,7 +10,7 @@ MLX			= $(MLX_PATH)$(MLX_NAME)
 LIBFT_PATH	= lib/libft/
 LIBFT_NAME	= libft.a
 LIBFT		= $(LIBFT_PATH)$(LIBFT_NAME)
-INC			=	-I ./includes/ -I ./lib/minilibx/ -I ./lib/libft/
+INC			=	-I ./includes/ -I ./lib/minilibx/ -I ./lib/libft/includes/
 
 DISPLAY		= draw init_window sprites texture window
 GAMEPLAY	= hud minimap player
@@ -27,6 +27,8 @@ F_RAYCAST	= $(addprefix src/raycast/, $(RAYCAST))
 F_UTILS		= $(addprefix src/utils/, $(UTILS))
 F_MAIN		= $(addprefix src/, $(MAIN))
 
+vpath %.c src/display/ src/gameplay/ src/parsing/ src/raycast/ src/utils/ src/
+
 FILES		= $(F_DISPLAY) $(F_GAMEPLAY) $(F_PARSING) $(F_RAYCAST) $(F_UTILS) $(F_MAIN)
 
 SRCS		= $(addsuffix .c, $(FILES))
@@ -37,31 +39,7 @@ DEPS		= $(OBJS:.o=.d)
 
 all: $(MLX) $(LIBFT) $(NAME)
 
-$(OBJ_PATH)%.o: $(SRC_PATH)%.c
-	@mkdir -p $(dir $@)
-	@$(CC) $(CFLAGS) -c $< -o $@ $(INC)
-
-$(OBJ_PATH)%.o: src/display/%.c
-	@mkdir -p $(dir $@)
-	@$(CC) $(CFLAGS) -c $< -o $@ $(INC)
-
-$(OBJ_PATH)%.o: src/gameplay/%.c
-	@mkdir -p $(dir $@)
-	@$(CC) $(CFLAGS) -c $< -o $@ $(INC)
-
-$(OBJ_PATH)%.o: src/parsing/%.c
-	@mkdir -p $(dir $@)
-	@$(CC) $(CFLAGS) -c $< -o $@ $(INC)
-
-$(OBJ_PATH)%.o: src/raycast/%.c
-	@mkdir -p $(dir $@)
-	@$(CC) $(CFLAGS) -c $< -o $@ $(INC)
-
-$(OBJ_PATH)%.o: src/utils/%.c
-	@mkdir -p $(dir $@)
-	@$(CC) $(CFLAGS) -c $< -o $@ $(INC)
-
-$(OBJ_PATH)%.o: src/%.c
+$(OBJ_PATH)%.o: %.c
 	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) -c $< -o $@ $(INC)
 
@@ -71,7 +49,7 @@ $(MLX):
 $(LIBFT):
 	@make -C $(LIBFT_PATH)
 
-$(NAME): $(OBJS) Makefile $(MLX) $(LIBFT)
+$(NAME): Makefile $(MLX) $(LIBFT) $(OBJS)
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -L./lib/libft -lft -L./$(MLX_PATH) -lmlx -L/usr/include/../lib -lXext -lX11 -lm -lbsd
 	@echo -e "\033[0;32m$(NAME) created 📚\033[0m"
 
@@ -83,6 +61,7 @@ clean:
 
 fclean: clean
 	@$(RM) $(NAME)
+	@make fclean -C $(LIBFT_PATH) > /dev/null
 	@echo -e "\033[0;32mCleaned $(NAME) 🧹\033[0m"
 
 re: fclean all
