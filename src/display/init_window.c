@@ -34,13 +34,15 @@ void	init_doors(t_game *game)
 	&game->data.endian);
 }
 
-void	init_floor_ceiling_and_doors(t_game *game)
+int	init_floor_ceiling_and_doors(t_game *game)
 {
 	if (game->map.floor_texture)
 	{
 		game->data.f_texture = mlx_xpm_file_to_image(game->data.mlx_ptr, \
 		game->map.floor_texture, &game->data.texture_width, \
 		&game->data.texture_height);
+		if (!game->data.f_texture)
+			return (cub_error("Error\nInvalid FLOOR texture\n", FAILURE));
 		game->data.floor_addr = mlx_get_data_addr(game->data.f_texture, \
 		&game->data.bits_per_pixel, &game->data.line_length, \
 		&game->data.endian);
@@ -50,6 +52,8 @@ void	init_floor_ceiling_and_doors(t_game *game)
 		game->data.c_texture = mlx_xpm_file_to_image(game->data.mlx_ptr, \
 		game->map.ceiling_texture, &game->data.texture_width, \
 		&game->data.texture_height);
+		if (!game->data.c_texture)
+			return (cub_error("Error\nInvalid CEILING texture\n", FAILURE));
 		game->data.ceiling_addr = mlx_get_data_addr(game->data.c_texture, \
 		&game->data.bits_per_pixel, &game->data.line_length, \
 		&game->data.endian);

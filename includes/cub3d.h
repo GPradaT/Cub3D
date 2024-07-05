@@ -282,7 +282,7 @@ void		init_window(t_game *game);
 void		init_parsing_data(t_game *game);
 int			init_textures(t_game *game);
 void		init_hud(t_game *game);
-void		init_floor_ceiling_and_doors(t_game *game);
+int			init_floor_ceiling_and_doors(t_game *game);
 int			loop(t_game *game);
 
 //--------------------WINDOW--------------------------------------------------
